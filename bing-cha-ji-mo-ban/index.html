@@ -1,9 +1,11 @@
+
+<!DOCTYPE html>
 <html>
   <head>
     
 <meta charset="utf-8" >
 
-<title>rocky</title>
+<title>并查集模板 | rocky</title>
 <meta name="description" content="Hello Sarah">
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
@@ -75,32 +77,68 @@
 </transition>
 
 
-        <div class="content-container">
+      <div class="content-container">
+        <div class="post-detail">
           
-          
+          <h2 class="post-title">并查集模板</h2>
+          <div class="post-info post-detail-info">
+            <span><i class="icon-calendar-outline"></i> 2020-03-20</span>
+            
+          </div>
+          <div class="post-content">
+            <pre><code class="language-java">public class UF {
+    private int[] id;
+    private int[] sz;
 
-<div class="archives-container">
-  
-    <h2 class="year">2020</h2>
-    
-      
-        <article class="post">
-          <a href="https://rocky.github.io/bing-cha-ji-mo-ban/">
-            <h2 class="post-title">
-              并查集模板
-              <small>2020-03-20</small>
-            </h2>
-          </a>
-        </article>
-      
-    
-  
-</div>
+    public UF(int N) {
+        id = new int[N];
+        sz = new int[N];
+        for (int i = 0; i &lt; N; i++) {
+            id[i] = i;
+            sz[i] = 1;
+        }
+    }
 
+    // 路径压缩
+    public int root(int i) {
+        while (i != id[i]) {
+            id[i] = id[id[i]];
+            i = id[i];
+        }
+        return i;
+    }
 
+    // 检查是否连通
+    public boolean connected(int p, int q) {
+        return root(p) == root(q);
+    }
+
+    // 带权合并
+    public void union(int p, int q) {
+        int i = root(p);
+        int j = root(q);
+        if (i == j)
+            return;
+        if (sz[i] &lt; sz[j]) {
+            id[i] = j;
+            sz[j] += sz[i];
+        } else {
+            id[j] = i;
+            sz[i] += sz[j];
+        }
+    }
+}
+</code></pre>
+
+          </div>
         </div>
 
-        <div class="site-footer">
+        
+      </div>
+
+      
+
+      <div class="site-footer">
   <div class="slogan">Hello Sarah</div>
   <div class="social-container">
     
@@ -119,8 +157,8 @@
 </div>
 
 
-      </div>
-      <script type="application/javascript">
+    </div>
+    <script type="application/javascript">
 
 hljs.initHighlightingOnLoad()
 
@@ -136,6 +174,5 @@ var app = new Vue({
 
 
 
-    </div>
   </body>
 </html>
