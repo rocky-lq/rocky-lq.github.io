@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://rocky-lq.github.io</id>
     <title>rocky</title>
-    <updated>2020-03-23T02:23:19.318Z</updated>
+    <updated>2020-03-23T08:12:16.675Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://rocky-lq.github.io"/>
     <link rel="self" href="https://rocky-lq.github.io/atom.xml"/>
@@ -10,6 +10,113 @@
     <logo>https://rocky-lq.github.io/images/avatar.png</logo>
     <icon>https://rocky-lq.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, rocky</rights>
+    <entry>
+        <title type="html"><![CDATA[LeetCode——181周周赛]]></title>
+        <id>https://rocky-lq.github.io/leetcode-181-zhou-zhou-sai/</id>
+        <link href="https://rocky-lq.github.io/leetcode-181-zhou-zhou-sai/">
+        </link>
+        <updated>2020-03-23T07:36:32.000Z</updated>
+        <content type="html"><![CDATA[<h3 id="1389-按既定顺序创建目标数组"><a href="https://leetcode-cn.com/problems/create-target-array-in-the-given-order/">1389. 按既定顺序创建目标数组</a></h3>
+<blockquote>
+<p>给你两个整数数组 nums 和 index。你需要按照以下规则创建目标数组：</p>
+<p>目标数组 target 最初为空。<br>
+按从左到右的顺序依次读取 nums[i] 和 index[i]，在 target 数组中的下标 index[i] 处插入值 nums[i] 。<br>
+重复上一步，直到在 nums 和 index 中都没有要读取的元素。<br>
+请你返回目标数组。</p>
+<p>题目保证数字插入位置总是存在。</p>
+<p>示例：</p>
+<p>输入：nums = [0,1,2,3,4], index = [0,1,2,2,1]<br>
+输出：[0,4,1,3,2]<br>
+解释：<br>
+nums       index     target<br>
+0                0      	  [0]<br>
+1            	1        	[0,1]<br>
+2           	 2        	[0,1,2]<br>
+3          	  2      	  [0,1,3,2]<br>
+4           	 1       	 [0,4,1,3,2]</p>
+</blockquote>
+<p>简单的模拟题，直接调用vector的insert函数即可。</p>
+<pre><code class="language-C++">class Solution {
+public:
+    vector&lt;int&gt; createTargetArray(vector&lt;int&gt;&amp; nums, vector&lt;int&gt;&amp; index) {
+        vector&lt;int&gt; res;
+        for(int i=0;i&lt;nums.size();i++)
+        {
+            auto j = res.begin() + index[i];
+            res.insert(j, nums[i]);
+        }
+        return res;
+    }
+};
+</code></pre>
+<h3 id="1390-四因数"><a href="https://leetcode-cn.com/contest/weekly-contest-181/problems/four-divisors/">1390. 四因数</a></h3>
+<blockquote>
+<p>给你一个整数数组 <code>nums</code>，请你返回该数组中恰有四个因数的这些整数的各因数之和。</p>
+<p>如果数组中不存在满足题意的整数，则返回 <code>0</code> 。</p>
+<p>示例：</p>
+<p>输入：nums = [21,4,7]<br>
+输出：32<br>
+解释：<br>
+21 有 4 个因数：1, 3, 7, 21<br>
+4 有 3 个因数：1, 2, 4<br>
+7 有 2 个因数：1, 7<br>
+答案仅为 21 的所有因数的和。</p>
+</blockquote>
+<p>由于题目数据范围较小，可直接暴力模拟过。</p>
+<pre><code class="language-C++">class Solution {
+public:
+	bool getFactor(int x, vector&lt;int&gt;&amp; factors) {
+		factors.clear();
+		for (int i = 1; i * i &lt;= x; i++){
+			if (x % i == 0) {
+				factors.push_back(i);
+				if (x / i != i)
+					factors.push_back(x / i);	//排除重复因子
+			}
+		}
+		if (factors.size() != 4) {
+			return false;
+		}
+		return true;
+	}
+
+	int sumFourDivisors(vector&lt;int&gt;&amp; nums) {
+		int res = 0;
+		for (int a : nums) {
+			vector&lt;int&gt; factors;
+			if (getFactor(a, factors)) {
+				for (int factor : factors) {
+					res += factor;
+				}
+			}
+		}
+		return res;
+	}
+};
+</code></pre>
+<h3 id="1392-最长快乐前缀"><a href="https://leetcode-cn.com/problems/longest-happy-prefix/">1392. 最长快乐前缀</a></h3>
+<blockquote>
+<p>「快乐前缀」是在原字符串中既是 非空 前缀也是后缀（不包括原字符串自身）的字符串。</p>
+<p>给你一个字符串 s，请你返回它的 最长快乐前缀。</p>
+<p>如果不存在满足题意的前缀，则返回一个空字符串</p>
+<p>示例</p>
+<p>输入：s = &quot;level&quot;<br>
+输出：&quot;l&quot;<br>
+解释：不包括 s 自己，一共有 4 个前缀（&quot;l&quot;, &quot;le&quot;, &quot;lev&quot;, &quot;leve&quot;）和 4 个后缀（&quot;l&quot;, &quot;el&quot;, &quot;vel&quot;, &quot;evel&quot;）。最长的既是前缀也是后缀的字符串是 &quot;l&quot; 。</p>
+</blockquote>
+<p>在不调用substr的情况可直接暴力模拟过。使用C++substr截取前后缀会爆内存，逐位比较会超时，使用equal比较可卡着时间过。</p>
+<pre><code class="language-c++">class Solution {
+public:
+	string longestPrefix(string s) {
+		int len = s.size();
+		while (--len &amp;&amp; !equal(s.begin(), s.begin() + len, s.end() - len));
+		s.resize(len);
+		return s;
+	}
+};
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[并查集模板]]></title>
         <id>https://rocky-lq.github.io/bing-cha-ji-mo-ban/</id>
