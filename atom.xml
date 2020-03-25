@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://rocky-lq.github.io</id>
     <title>rocky</title>
-    <updated>2020-03-24T07:13:19.996Z</updated>
+    <updated>2020-03-25T01:53:23.181Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://rocky-lq.github.io"/>
     <link rel="self" href="https://rocky-lq.github.io/atom.xml"/>
@@ -16,7 +16,42 @@
         <link href="https://rocky-lq.github.io/leetcode-mei-ri-yi-ti/">
         </link>
         <updated>2020-03-24T07:03:28.000Z</updated>
-        <content type="html"><![CDATA[<h3 id="面试题-1716-按摩师"><a href="https://leetcode-cn.com/problems/the-masseuse-lcci/">面试题 17.16. 按摩师</a></h3>
+        <content type="html"><![CDATA[<h3 id="892-三维形体的表面积"><a href="https://leetcode-cn.com/problems/surface-area-of-3d-shapes/">892. 三维形体的表面积</a></h3>
+<blockquote>
+<p>在 N * N 的网格上，我们放置一些 1 * 1 * 1  的立方体。</p>
+<p>每个值 v = grid(i,j)表示 v 个正方体叠放在对应单元格 (i, j) 上。</p>
+<p>请你返回最终形体的表面积。</p>
+<p>示例1：</p>
+<p>输入：[[2]]<br>
+输出：10</p>
+<p>示例2：</p>
+<p>输入：[[1,2],[3,4]]<br>
+输出：34</p>
+</blockquote>
+<p>发现计算表面积规律直接遍历二维数组即可，对于每个位置做与右边下边的去重。</p>
+<pre><code class="language-C++">class Solution {
+public:
+    int surfaceArea(vector&lt;vector&lt;int&gt;&gt; &amp;grid) {
+        int res = 0;
+        int M = grid.size();
+        for (int i = 0; i &lt; M; i++) {
+            int N = grid[i].size();
+            for (int j = 0; j &lt; N; j++) {
+                res += grid[i][j] * 4; //圆柱侧面
+                if (grid[i][j])
+                    res += 2;  //上下地面
+                if (j + 1 &lt; N) //和右边去重
+                    res -= 2 * min(grid[i][j], grid[i][j + 1]);
+
+                if (i + 1 &lt; M) //和下面去重
+                    res -= 2 * min(grid[i][j], grid[i + 1][j]);
+            }
+        }
+        return res;
+    }
+};
+</code></pre>
+<h3 id="httpsleetcode-cncomproblemsthe-masseuse-lcci">https://leetcode-cn.com/problems/the-masseuse-lcci/)</h3>
 <blockquote>
 <p>一个有名的按摩师会收到源源不断的预约请求，每个预约都可以选择接或不接。在每次预约服务之间要有休息时间，因此她不能接受相邻的预约。给定一个预约请求序列，替按摩师找到最优的预约集合（总预约时间最长），返回总的分钟数。</p>
 <p>注意：本题相对原题稍作改动</p>
@@ -25,7 +60,7 @@
 输出： 4<br>
 解释： 选择 1 号预约和 3 号预约，总时长 = 1 + 3 = 4。</p>
 </blockquote>
-<p>简单的动态规划类题目</p>
+<p>简答的动态规划类题目</p>
 <pre><code class="language-C++">class Solution
 {
 public:
