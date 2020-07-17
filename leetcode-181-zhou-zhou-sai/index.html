@@ -1,124 +1,137 @@
-
 <!DOCTYPE html>
 <html>
   <head>
-    
-<meta charset="utf-8" >
+    <meta charset="utf-8" />
 
-<title>LeetCode——181周周赛 | rocky</title>
-<meta name="description" content="Hello HLL">
+    <title>LeetCode——181周周赛 | rocky</title>
+    <meta name="description" content="Hello HLL" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"
+    />
 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://rocky-lq.github.io/favicon.ico?v=1585101396614">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-<link rel="stylesheet" href="https://rocky-lq.github.io/styles/main.css">
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="shortcut icon"
+      href="https://rocky-lq.github.io/favicon.ico?v=1585101396614"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css"
+    />
+    <link rel="stylesheet" href="https://rocky-lq.github.io/styles/main.css" />
 
-
-  
     <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
-  
 
-  
-
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-
-
-
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
   <body>
     <div id="app" class="main">
       <div class="site-header-container">
-  <div class="site-header">
-    <div class="left">
-      <a href="https://rocky-lq.github.io">
-        <img class="avatar" src="https://rocky-lq.github.io/images/avatar.png?v=1585101396614" alt="" width="32px" height="32px">
-      </a>
-      <a href="https://rocky-lq.github.io">
-        <h1 class="site-title">rocky</h1>
-      </a>
-    </div>
-    <div class="right">
+        <div class="site-header">
+          <div class="left">
+            <a href="https://rocky-lq.github.io">
+              <img
+                class="avatar"
+                src="https://rocky-lq.github.io/images/avatar.png?v=1585101396614"
+                alt=""
+                width="32px"
+                height="32px"
+              />
+            </a>
+            <a href="https://rocky-lq.github.io">
+              <h1 class="site-title">rocky</h1>
+            </a>
+          </div>
+          <div class="right">
+            <transition name="fade">
+              <i
+                class="icon"
+                :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }"
+                @click="menuVisible = !menuVisible"
+              ></i>
+            </transition>
+          </div>
+        </div>
+      </div>
+
       <transition name="fade">
-        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+        <div class="menu-container" style="display: none;" v-show="menuVisible">
+          <div class="menu-list">
+            <a href="/" class="menu purple-link">
+              首页
+            </a>
+
+            <a href="/archives" class="menu purple-link">
+              归档
+            </a>
+
+            <a href="/tags" class="menu purple-link">
+              标签
+            </a>
+
+            <a href="/post/about" class="menu purple-link">
+              关于
+            </a>
+
+            <a href="/leetcode" class="menu purple-link">
+              LeetCode
+            </a>
+          </div>
+        </div>
       </transition>
-    </div>
-  </div>
-</div>
-
-<transition name="fade">
-  <div class="menu-container" style="display: none;" v-show="menuVisible">
-    <div class="menu-list">
-      
-        
-          <a href="/" class="menu purple-link">
-            首页
-          </a>
-        
-      
-        
-          <a href="/archives" class="menu purple-link">
-            归档
-          </a>
-        
-      
-        
-          <a href="/tags" class="menu purple-link">
-            标签
-          </a>
-        
-      
-        
-          <a href="/post/about" class="menu purple-link">
-            关于
-          </a>
-        
-      
-        
-          <a href="/leetcode" class="menu purple-link">
-            LeetCode
-          </a>
-        
-      
-    </div>
-  </div>
-</transition>
-
 
       <div class="content-container">
         <div class="post-detail">
-          
           <h2 class="post-title">LeetCode——181周周赛</h2>
           <div class="post-info post-detail-info">
             <span><i class="icon-calendar-outline"></i> 2020-03-23</span>
-            
           </div>
           <div class="post-content">
-            <h3 id="1389-按既定顺序创建目标数组"><a href="https://leetcode-cn.com/problems/create-target-array-in-the-given-order/">1389. 按既定顺序创建目标数组</a></h3>
-<blockquote>
-<p>给你两个整数数组 nums 和 index。你需要按照以下规则创建目标数组：</p>
-<p>目标数组 target 最初为空。<br>
-按从左到右的顺序依次读取 nums[i] 和 index[i]，在 target 数组中的下标 index[i] 处插入值 nums[i] 。<br>
-重复上一步，直到在 nums 和 index 中都没有要读取的元素。<br>
-请你返回目标数组。</p>
-<p>题目保证数字插入位置总是存在。</p>
-<p>示例：</p>
-<p>输入：nums = [0,1,2,3,4], index = [0,1,2,2,1]<br>
-输出：[0,4,1,3,2]<br>
-解释：<br>
-nums       index     target<br>
-0                0      	  [0]<br>
-1            	1        	[0,1]<br>
-2           	 2        	[0,1,2]<br>
-3          	  2      	  [0,1,3,2]<br>
-4           	 1       	 [0,4,1,3,2]</p>
-</blockquote>
-<p>简单的模拟题，直接调用vector的insert函数即可。</p>
-<pre><code class="language-C++">class Solution {
+            <h3 id="1389-按既定顺序创建目标数组">
+              <a
+                href="https://leetcode-cn.com/problems/create-target-array-in-the-given-order/"
+                >1389. 按既定顺序创建目标数组</a
+              >
+            </h3>
+            <blockquote>
+              <p>
+                给你两个整数数组 nums 和 index。你需要按照以下规则创建目标数组：
+              </p>
+              <p>
+                目标数组 target 最初为空。<br />
+                按从左到右的顺序依次读取 nums[i] 和 index[i]，在 target
+                数组中的下标 index[i] 处插入值 nums[i] 。<br />
+                重复上一步，直到在 nums 和 index 中都没有要读取的元素。<br />
+                请你返回目标数组。
+              </p>
+              <p>题目保证数字插入位置总是存在。</p>
+              <p>示例：</p>
+              <p>
+                输入：nums = [0,1,2,3,4], index = [0,1,2,2,1]<br />
+                输出：[0,4,1,3,2]<br />
+                解释：<br />
+                nums index target<br />
+                0 0 [0]<br />
+                1 1 [0,1]<br />
+                2 2 [0,1,2]<br />
+                3 2 [0,1,3,2]<br />
+                4 1 [0,4,1,3,2]
+              </p>
+            </blockquote>
+            <p>简单的模拟题，直接调用vector的insert函数即可。</p>
+            <pre><code class="language-C++">class Solution {
 public:
     vector&lt;int&gt; createTargetArray(vector&lt;int&gt;&amp; nums, vector&lt;int&gt;&amp; index) {
         vector&lt;int&gt; res;
@@ -131,21 +144,32 @@ public:
     }
 };
 </code></pre>
-<h3 id="1390-四因数"><a href="https://leetcode-cn.com/contest/weekly-contest-181/problems/four-divisors/">1390. 四因数</a></h3>
-<blockquote>
-<p>给你一个整数数组 <code>nums</code>，请你返回该数组中恰有四个因数的这些整数的各因数之和。</p>
-<p>如果数组中不存在满足题意的整数，则返回 <code>0</code> 。</p>
-<p>示例：</p>
-<p>输入：nums = [21,4,7]<br>
-输出：32<br>
-解释：<br>
-21 有 4 个因数：1, 3, 7, 21<br>
-4 有 3 个因数：1, 2, 4<br>
-7 有 2 个因数：1, 7<br>
-答案仅为 21 的所有因数的和。</p>
-</blockquote>
-<p>由于题目数据范围较小，可直接暴力模拟过。</p>
-<pre><code class="language-C++">class Solution {
+            <h3 id="1390-四因数">
+              <a
+                href="https://leetcode-cn.com/contest/weekly-contest-181/problems/four-divisors/"
+                >1390. 四因数</a
+              >
+            </h3>
+            <blockquote>
+              <p>
+                给你一个整数数组
+                <code>nums</code
+                >，请你返回该数组中恰有四个因数的这些整数的各因数之和。
+              </p>
+              <p>如果数组中不存在满足题意的整数，则返回 <code>0</code> 。</p>
+              <p>示例：</p>
+              <p>
+                输入：nums = [21,4,7]<br />
+                输出：32<br />
+                解释：<br />
+                21 有 4 个因数：1, 3, 7, 21<br />
+                4 有 3 个因数：1, 2, 4<br />
+                7 有 2 个因数：1, 7<br />
+                答案仅为 21 的所有因数的和。
+              </p>
+            </blockquote>
+            <p>由于题目数据范围较小，可直接暴力模拟过。</p>
+            <pre><code class="language-C++">class Solution {
 public:
 	bool getFactor(int x, vector&lt;int&gt;&amp; factors) {
 		factors.clear();
@@ -176,18 +200,33 @@ public:
 	}
 };
 </code></pre>
-<h3 id="1392-最长快乐前缀"><a href="https://leetcode-cn.com/problems/longest-happy-prefix/">1392. 最长快乐前缀</a></h3>
-<blockquote>
-<p>「快乐前缀」是在原字符串中既是 非空 前缀也是后缀（不包括原字符串自身）的字符串。</p>
-<p>给你一个字符串 s，请你返回它的 最长快乐前缀。</p>
-<p>如果不存在满足题意的前缀，则返回一个空字符串</p>
-<p>示例</p>
-<p>输入：s = &quot;level&quot;<br>
-输出：&quot;l&quot;<br>
-解释：不包括 s 自己，一共有 4 个前缀（&quot;l&quot;, &quot;le&quot;, &quot;lev&quot;, &quot;leve&quot;）和 4 个后缀（&quot;l&quot;, &quot;el&quot;, &quot;vel&quot;, &quot;evel&quot;）。最长的既是前缀也是后缀的字符串是 &quot;l&quot; 。</p>
-</blockquote>
-<p>在不调用substr的情况可直接暴力模拟过。使用C++substr截取前后缀会爆内存，逐位比较会超时，使用equal比较可卡着时间过。</p>
-<pre><code class="language-c++">class Solution {
+            <h3 id="1392-最长快乐前缀">
+              <a href="https://leetcode-cn.com/problems/longest-happy-prefix/"
+                >1392. 最长快乐前缀</a
+              >
+            </h3>
+            <blockquote>
+              <p>
+                「快乐前缀」是在原字符串中既是 非空
+                前缀也是后缀（不包括原字符串自身）的字符串。
+              </p>
+              <p>给你一个字符串 s，请你返回它的 最长快乐前缀。</p>
+              <p>如果不存在满足题意的前缀，则返回一个空字符串</p>
+              <p>示例</p>
+              <p>
+                输入：s = &quot;level&quot;<br />
+                输出：&quot;l&quot;<br />
+                解释：不包括 s 自己，一共有 4 个前缀（&quot;l&quot;,
+                &quot;le&quot;, &quot;lev&quot;, &quot;leve&quot;）和 4
+                个后缀（&quot;l&quot;, &quot;el&quot;, &quot;vel&quot;,
+                &quot;evel&quot;）。最长的既是前缀也是后缀的字符串是
+                &quot;l&quot; 。
+              </p>
+            </blockquote>
+            <p>
+              在不调用substr的情况可直接暴力模拟过。使用C++substr截取前后缀会爆内存，逐位比较会超时，使用equal比较可卡着时间过。
+            </p>
+            <pre><code class="language-c++">class Solution {
 public:
 	string longestPrefix(string s) {
 		int len = s.size();
@@ -197,87 +236,60 @@ public:
 	}
 };
 </code></pre>
-
           </div>
         </div>
 
-        
-          <div class="next-post">
-            <a class="purple-link" href="https://rocky-lq.github.io/bing-cha-ji-mo-ban/">
-              <h3 class="post-title">
-                下一篇：并查集模板
-              </h3>
-            </a>
-          </div>
-          
+        <div class="next-post">
+          <a
+            class="purple-link"
+            href="https://rocky-lq.github.io/bing-cha-ji-mo-ban/"
+          >
+            <h3 class="post-title">
+              下一篇：并查集模板
+            </h3>
+          </a>
+        </div>
       </div>
 
-      
-        
-          <div id="gitalk-container"></div>
-        
-
-        
-      
+      <div id="gitalk-container"></div>
 
       <div class="site-footer">
-  <div class="slogan">Hello HLL</div>
-  <div class="social-container">
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  </div>
-  Powered by <a href="https://github.com/rocky-lq" target="_blank">rocky</a> | <a class="rss" href="https://rocky-lq.github.io/atom.xml" target="_blank">RSS</a>
-</div>
-
-
+        <div class="slogan">Hello HLL</div>
+        <div class="social-container"></div>
+        Powered by
+        <a href="https://github.com/rocky-lq" target="_blank">rocky</a> |
+        <a
+          class="rss"
+          href="https://rocky-lq.github.io/atom.xml"
+          target="_blank"
+          >RSS</a
+        >
+      </div>
     </div>
     <script type="application/javascript">
+      hljs.initHighlightingOnLoad();
 
-hljs.initHighlightingOnLoad()
+      var app = new Vue({
+        el: "#app",
+        data: {
+          menuVisible: false,
+        },
+      });
+    </script>
 
-var app = new Vue({
-  el: '#app',
-  data: {
-    menuVisible: false,
-  },
-})
-
-</script>
-
-
-
-  
     <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
     <script>
-
       var gitalk = new Gitalk({
-        clientID: '',
-        clientSecret: '',
-        repo: '',
-        owner: '',
-        admin: [''],
-        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-        distractionFreeMode: false  // Facebook-like distraction free mode
-      })
+        clientID: "",
+        clientSecret: "",
+        repo: "",
+        owner: "",
+        admin: [""],
+        id: location.pathname.substring(0, 49), // Ensure uniqueness and length less than 50
+        distractionFreeMode: false, // Facebook-like distraction free mode
+      });
 
-      gitalk.render('gitalk-container')
-
+      gitalk.render("gitalk-container");
     </script>
-  
-
-  
-
-
-
-
   </body>
 </html>

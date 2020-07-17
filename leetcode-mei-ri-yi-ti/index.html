@@ -1,117 +1,131 @@
-
 <!DOCTYPE html>
 <html>
   <head>
-    
-<meta charset="utf-8" >
+    <meta charset="utf-8" />
 
-<title>LeetCode每日一题 | rocky</title>
-<meta name="description" content="Hello HLL">
+    <title>LeetCode每日一题 | rocky</title>
+    <meta name="description" content="Hello HLL" />
 
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css">
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.0/animate.min.css"
+    />
 
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
-<link rel="shortcut icon" href="https://rocky-lq.github.io/favicon.ico?v=1585101396614">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css">
-<link rel="stylesheet" href="https://rocky-lq.github.io/styles/main.css">
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.7.2/css/all.css"
+      integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr"
+      crossorigin="anonymous"
+    />
+    <link
+      rel="shortcut icon"
+      href="https://rocky-lq.github.io/favicon.ico?v=1585101396614"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.10.0/katex.min.css"
+    />
+    <link rel="stylesheet" href="https://rocky-lq.github.io/styles/main.css" />
 
-
-  
     <link rel="stylesheet" href="https://unpkg.com/gitalk/dist/gitalk.css" />
-  
 
-  
-
-
-<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-<script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
-
-
-
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script src="https://cdn.bootcss.com/highlight.js/9.12.0/highlight.min.js"></script>
   </head>
   <body>
     <div id="app" class="main">
       <div class="site-header-container">
-  <div class="site-header">
-    <div class="left">
-      <a href="https://rocky-lq.github.io">
-        <img class="avatar" src="https://rocky-lq.github.io/images/avatar.png?v=1585101396614" alt="" width="32px" height="32px">
-      </a>
-      <a href="https://rocky-lq.github.io">
-        <h1 class="site-title">rocky</h1>
-      </a>
-    </div>
-    <div class="right">
+        <div class="site-header">
+          <div class="left">
+            <a href="https://rocky-lq.github.io">
+              <img
+                class="avatar"
+                src="https://rocky-lq.github.io/images/avatar.png?v=1585101396614"
+                alt=""
+                width="32px"
+                height="32px"
+              />
+            </a>
+            <a href="https://rocky-lq.github.io">
+              <h1 class="site-title">rocky</h1>
+            </a>
+          </div>
+          <div class="right">
+            <transition name="fade">
+              <i
+                class="icon"
+                :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }"
+                @click="menuVisible = !menuVisible"
+              ></i>
+            </transition>
+          </div>
+        </div>
+      </div>
+
       <transition name="fade">
-        <i class="icon" :class="{ 'icon-close-outline': menuVisible, 'icon-menu-outline': !menuVisible }" @click="menuVisible = !menuVisible"></i>
+        <div class="menu-container" style="display: none;" v-show="menuVisible">
+          <div class="menu-list">
+            <a href="/" class="menu purple-link">
+              首页
+            </a>
+
+            <a href="/archives" class="menu purple-link">
+              归档
+            </a>
+
+            <a href="/tags" class="menu purple-link">
+              标签
+            </a>
+
+            <a href="/post/about" class="menu purple-link">
+              关于
+            </a>
+
+            <a href="/leetcode" class="menu purple-link">
+              LeetCode
+            </a>
+          </div>
+        </div>
       </transition>
-    </div>
-  </div>
-</div>
-
-<transition name="fade">
-  <div class="menu-container" style="display: none;" v-show="menuVisible">
-    <div class="menu-list">
-      
-        
-          <a href="/" class="menu purple-link">
-            首页
-          </a>
-        
-      
-        
-          <a href="/archives" class="menu purple-link">
-            归档
-          </a>
-        
-      
-        
-          <a href="/tags" class="menu purple-link">
-            标签
-          </a>
-        
-      
-        
-          <a href="/post/about" class="menu purple-link">
-            关于
-          </a>
-        
-      
-        
-          <a href="/leetcode" class="menu purple-link">
-            LeetCode
-          </a>
-        
-      
-    </div>
-  </div>
-</transition>
-
 
       <div class="content-container">
         <div class="post-detail">
-          
           <h2 class="post-title">LeetCode每日一题</h2>
           <div class="post-info post-detail-info">
             <span><i class="icon-calendar-outline"></i> 2020-03-24</span>
-            
           </div>
           <div class="post-content">
-            <h3 id="892-三维形体的表面积"><a href="https://leetcode-cn.com/problems/surface-area-of-3d-shapes/">892. 三维形体的表面积</a></h3>
-<blockquote>
-<p>在 N * N 的网格上，我们放置一些 1 * 1 * 1  的立方体。</p>
-<p>每个值 v = grid(i,j)表示 v 个正方体叠放在对应单元格 (i, j) 上。</p>
-<p>请你返回最终形体的表面积。</p>
-<p>示例1：</p>
-<p>输入：[[2]]<br>
-输出：10</p>
-<p>示例2：</p>
-<p>输入：[[1,2],[3,4]]<br>
-输出：34</p>
-</blockquote>
-<p>发现计算表面积规律直接遍历二维数组即可，对于每个位置做与右边下边的去重。</p>
-<pre><code class="language-C++">class Solution {
+            <h3 id="892-三维形体的表面积">
+              <a
+                href="https://leetcode-cn.com/problems/surface-area-of-3d-shapes/"
+                >892. 三维形体的表面积</a
+              >
+            </h3>
+            <blockquote>
+              <p>在 N * N 的网格上，我们放置一些 1 * 1 * 1 的立方体。</p>
+              <p>
+                每个值 v = grid(i,j)表示 v 个正方体叠放在对应单元格 (i, j) 上。
+              </p>
+              <p>请你返回最终形体的表面积。</p>
+              <p>示例1：</p>
+              <p>
+                输入：[[2]]<br />
+                输出：10
+              </p>
+              <p>示例2：</p>
+              <p>
+                输入：[[1,2],[3,4]]<br />
+                输出：34
+              </p>
+            </blockquote>
+            <p>
+              发现计算表面积规律直接遍历二维数组即可，对于每个位置做与右边下边的去重。
+            </p>
+            <pre><code class="language-C++">class Solution {
 public:
     int surfaceArea(vector&lt;vector&lt;int&gt;&gt; &amp;grid) {
         int res = 0;
@@ -133,17 +147,25 @@ public:
     }
 };
 </code></pre>
-<h3 id="面试题-1716-按摩师"><a href="https://leetcode-cn.com/problems/the-masseuse-lcci/">面试题 17.16. 按摩师</a></h3>
-<blockquote>
-<p>一个有名的按摩师会收到源源不断的预约请求，每个预约都可以选择接或不接。在每次预约服务之间要有休息时间，因此她不能接受相邻的预约。给定一个预约请求序列，替按摩师找到最优的预约集合（总预约时间最长），返回总的分钟数。</p>
-<p>注意：本题相对原题稍作改动</p>
-<p>示例：</p>
-<p>输入： [1,2,3,1]<br>
-输出： 4<br>
-解释： 选择 1 号预约和 3 号预约，总时长 = 1 + 3 = 4。</p>
-</blockquote>
-<p>简答的动态规划类题目</p>
-<pre><code class="language-C++">class Solution
+            <h3 id="面试题-1716-按摩师">
+              <a href="https://leetcode-cn.com/problems/the-masseuse-lcci/"
+                >面试题 17.16. 按摩师</a
+              >
+            </h3>
+            <blockquote>
+              <p>
+                一个有名的按摩师会收到源源不断的预约请求，每个预约都可以选择接或不接。在每次预约服务之间要有休息时间，因此她不能接受相邻的预约。给定一个预约请求序列，替按摩师找到最优的预约集合（总预约时间最长），返回总的分钟数。
+              </p>
+              <p>注意：本题相对原题稍作改动</p>
+              <p>示例：</p>
+              <p>
+                输入： [1,2,3,1]<br />
+                输出： 4<br />
+                解释： 选择 1 号预约和 3 号预约，总时长 = 1 + 3 = 4。
+              </p>
+            </blockquote>
+            <p>简答的动态规划类题目</p>
+            <pre><code class="language-C++">class Solution
 {
 public:
     int massage(vector&lt;int&gt; &amp;nums)
@@ -170,87 +192,60 @@ public:
     }
 };
 </code></pre>
-
           </div>
         </div>
 
-        
-          <div class="next-post">
-            <a class="purple-link" href="https://rocky-lq.github.io/leetcode-181-zhou-zhou-sai/">
-              <h3 class="post-title">
-                下一篇：LeetCode——181周周赛
-              </h3>
-            </a>
-          </div>
-          
+        <div class="next-post">
+          <a
+            class="purple-link"
+            href="https://rocky-lq.github.io/leetcode-181-zhou-zhou-sai/"
+          >
+            <h3 class="post-title">
+              下一篇：LeetCode——181周周赛
+            </h3>
+          </a>
+        </div>
       </div>
 
-      
-        
-          <div id="gitalk-container"></div>
-        
-
-        
-      
+      <div id="gitalk-container"></div>
 
       <div class="site-footer">
-  <div class="slogan">Hello HLL</div>
-  <div class="social-container">
-    
-      
-    
-      
-    
-      
-    
-      
-    
-      
-    
-  </div>
-  Powered by <a href="https://github.com/rocky-lq" target="_blank">rocky</a> | <a class="rss" href="https://rocky-lq.github.io/atom.xml" target="_blank">RSS</a>
-</div>
-
-
+        <div class="slogan">Hello HLL</div>
+        <div class="social-container"></div>
+        Powered by
+        <a href="https://github.com/rocky-lq" target="_blank">rocky</a> |
+        <a
+          class="rss"
+          href="https://rocky-lq.github.io/atom.xml"
+          target="_blank"
+          >RSS</a
+        >
+      </div>
     </div>
     <script type="application/javascript">
+      hljs.initHighlightingOnLoad();
 
-hljs.initHighlightingOnLoad()
+      var app = new Vue({
+        el: "#app",
+        data: {
+          menuVisible: false,
+        },
+      });
+    </script>
 
-var app = new Vue({
-  el: '#app',
-  data: {
-    menuVisible: false,
-  },
-})
-
-</script>
-
-
-
-  
     <script src="https://unpkg.com/gitalk/dist/gitalk.min.js"></script>
     <script>
-
       var gitalk = new Gitalk({
-        clientID: '',
-        clientSecret: '',
-        repo: '',
-        owner: '',
-        admin: [''],
-        id: (location.pathname).substring(0, 49),      // Ensure uniqueness and length less than 50
-        distractionFreeMode: false  // Facebook-like distraction free mode
-      })
+        clientID: "",
+        clientSecret: "",
+        repo: "",
+        owner: "",
+        admin: [""],
+        id: location.pathname.substring(0, 49), // Ensure uniqueness and length less than 50
+        distractionFreeMode: false, // Facebook-like distraction free mode
+      });
 
-      gitalk.render('gitalk-container')
-
+      gitalk.render("gitalk-container");
     </script>
-  
-
-  
-
-
-
-
   </body>
 </html>
