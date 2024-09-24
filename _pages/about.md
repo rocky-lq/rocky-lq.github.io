@@ -9,6 +9,8 @@ redirect_from:
 
 Hello! This is Qi Luo (罗旗).  My research focuses on **LLM4Code** and **LLM4Decompile**.
 
+I'm looking for a PhD position starting in 2025 fall.
+
 Education
 ======
 * (2022.09-) M.S. in Southern University of Science and Technology.
