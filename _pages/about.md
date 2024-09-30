@@ -7,9 +7,9 @@ redirect_from:
   - /about.html
 ---
 
-Hello! This is Qi Luo (罗旗).  My research focuses on **LLM4Code** and **LLM4Decompile**.
+Hello! This is Qi Luo (罗旗).  My research focuses on **LLM4SE** and **LLM4Decompile**.
 
-I'm looking for a PhD position starting in 2025 fall.
+I'm looking for a PhD position in 2025 fall.
 
 Education
 ======
