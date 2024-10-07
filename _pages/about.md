@@ -1,15 +1,14 @@
 ---
 permalink: /
-title: "About"
+title: "Qi Luo"
 author_profile: true
 redirect_from: 
   - /about/
   - /about.html
 ---
+<span style="color:gray;">Last updated: Oct 7, 2024</span>
 
-Hello! This is Qi Luo (罗旗).  My research focuses on **LLM4SE** and **LLM4Decompile**.
-
-I'm looking for a PhD position in 2025 fall.
+Hello! This is Qi Luo (罗旗). I am a graduate student of Southern University of Science and Technology (SUSTech), working with Prof. [Yuqun Zhang](https://scholar.google.com/citations?hl=en&user=pPyNyusAAAAJ). I have a board interests in large language models and security. Currently, I am interning at Kuaishou, conducting research related to **LLM4Code**. Meanwhile, I'm collaborating with Dr. [Tan](https://scholar.google.com/citations?user=IQp5awMAAAAJ&hl=zh-CN) on a project about **LLM4Binary**. Feel free to contact me if you're interested in collaboration.
 
 Education
 ======
@@ -19,15 +18,22 @@ Education
 
 Publications
 ======
-1. [EMNLP'2024] **LLM4Decompile: Decompiling Binary Code with Large Language Models.**
++ (EMNLP'2024) **LLM4Decompile: Decompiling Binary Code with Large Language Models.** 
+  <div style="display: inline-flex; align-items: center;">
+       <a href="https://github.com/albertan017/LLM4Decompile" style="display: inline-flex; align-items: center; padding: 5px 10px; border: 1px solid #ddd; border-radius: 5px; font-family: Arial, sans-serif; text-decoration: none; color: #333; background-color: #f5f5f5; margin-right: 5px;" target="_blank">
+           <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub logo" width="20" height="20" style="margin-right: 5px;">
+           Star
+       </a>
+       <span style="display: inline-flex; align-items: center; padding: 5px 10px; border: 1px solid #ddd; border-radius: 5px; font-family: Arial, sans-serif; background-color: #f5f5f5;" id="star-count">Loading...</span>
+   </div>
    + Hanzhuo Tan, **Qi Luo**, Jing Li, Yuqun Zhang
-   + [Paper](https://arxiv.org/abs/2403.05286) [Code](https://github.com/albertan017/LLM4Decompile) [Models](https://huggingface.co/LLM4Binary)
-2. [Preprint] **Prompt-based Code Completion via Multi-Retrieval Augmented Generation.**
+   + <span style="color:#00688A;">[<a href="https://arxiv.org/abs/2403.05286" style="text-decoration:none; color:#00688A;">paper</a>] [<a href="https://github.com/albertan017/LLM4Decompile" style="text-decoration:none; color:#00688A;">code</a>] [<a href="https://huggingface.co/LLM4Binary" style="text-decoration:none; color:#00688A;">models</a>]</span>
++ (Preprint) **Prompt-based Code Completion via Multi-Retrieval Augmented Generation.**
    + <u>Hanzhuo Tan, <strong>Qi Luo</strong></u>, Jing Li,Yuqun Zhang
-   + [Paper](https://arxiv.org/abs/2405.07530)
-3. [FSE'2023] **Enhancing Coverage-Guided Fuzzing via Phantom Program.**
+   + <span style="color:#00688A;">[<a href="https://arxiv.org/abs/2405.07530" style="text-decoration:none; color:#00688A;">paper</a>]</span>
++ (FSE'2023) **Enhancing Coverage-Guided Fuzzing via Phantom Program.**
    + Mingyuan Wu, Kunqiu Chen, **Qi Luo**, Jiahong Xiang, Ji Qi, Junjie Chen, Heming Cui, Yuqun Zhang.
-   + [Paper](https://shadowmydx.github.io/papers/fse2023a.pdf)
+   + <span style="color:#00688A;">[<a href="https://shadowmydx.github.io/papers/fse2023a.pdf" style="text-decoration:none; color:#00688A;">paper</a>]</span>
   
 Work experience
 ======
@@ -36,3 +42,17 @@ Work experience
 + (2018.05-2018.07) **Huawei**, Software Development Engineer Intern.
   
 
+<script>
+    async function fetchStarCount() {
+        try {
+            const response = await fetch('https://api.github.com/repos/albertan017/LLM4Decompile');
+            const data = await response.json();
+            document.getElementById('star-count').textContent = data.stargazers_count;
+        } catch (error) {
+            console.error('Error fetching star count:', error);
+            document.getElementById('star-count').textContent = 'Error';
+        }
+    }
+
+    fetchStarCount();
+</script>

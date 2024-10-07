@@ -24,9 +24,9 @@ author:
   avatar           : "elegant.png"
   name             : "Qi Luo"
   pronouns         : # example: "she/her"  
-  bio              : "LLM4Code, LLM4Decompile"
+  bio              : "Large Language Models, Security"
   location         : "Beijing, China"
-  employer         : "SUSTech"
+  # employer         : "SUSTech"
   uri              : # URL
   email            : "rocky_lq@icloud.com" 
 
