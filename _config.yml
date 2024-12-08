@@ -21,7 +21,7 @@ repository               : "rocky-lq/rocky-lq.github.io"
 #               Additional customization can be done by editing /_includes/author-profile.html
 author:
   # Biographic information
-  avatar           : "elegant.png"
+  avatar           : "qiluo.jpg"
   name             : "Qi Luo"
   pronouns         : # example: "she/her"  
   bio              : "Large Language Models, Security"
