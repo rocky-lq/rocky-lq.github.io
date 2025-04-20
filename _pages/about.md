@@ -35,7 +35,7 @@ redirect_from:
    + Mingyuan Wu, Kunqiu Chen, **Qi Luo**, Jiahong Xiang, Ji Qi, Junjie Chen, Heming Cui, Yuqun Zhang.
    + <span style="color:#00688A;">[<a href="https://shadowmydx.github.io/papers/fse2023a.pdf" style="text-decoration:none; color:#00688A;">paper</a>]</span>
 
-💼 experience
+💼 Experience
 ======
 + (2023.06-2024.12) **Kwai**, LLM Algorithm Engineer Intern.
 + (2019.07-2021.06) **Streamax Technology**, Algorithm Engineer.
