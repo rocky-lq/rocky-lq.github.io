@@ -6,17 +6,17 @@ redirect_from:
   - /about/
   - /about.html
 ---
-<span style="color:gray;">Last updated: Jan 8, 2025</span>
+<span style="color:gray;">Last updated: Apr 20, 2025</span>
 
 👋 Hello! This is Qi Luo. I am a graduate student of Southern University of Science and Technology (SUSTech), working with Prof. [Yuqun Zhang](https://scholar.google.com/citations?hl=en&user=pPyNyusAAAAJ). I have a board interests in large language models and security. I'm collaborating with Dr. [Tan](https://scholar.google.com/citations?user=IQp5awMAAAAJ&hl=zh-CN) on a project about **LLM4Binary**. Feel free to contact me if you're interested in collaboration.
 
-Education
+🎓 Education
 ======
 * (2022.09-) M.S. in Southern University of Science and Technology.
   * Supervised by Prof. [Yuqun Zhang](https://zhangyuqun.github.io)
 * (2015.09-2019.06) B.S. in Xidian University. 
 
-Publications
+📄 Publications
 ======
 + (TOSEM'2025) **Prompt-based Code Completion via Multi-Retrieval Augmented Generation.**
    + <u>Hanzhuo Tan<sup>*</sup>, <strong>Qi Luo<sup>*</sup></strong></u>, Jing Li,Yuqun Zhang
@@ -35,7 +35,7 @@ Publications
    + Mingyuan Wu, Kunqiu Chen, **Qi Luo**, Jiahong Xiang, Ji Qi, Junjie Chen, Heming Cui, Yuqun Zhang.
    + <span style="color:#00688A;">[<a href="https://shadowmydx.github.io/papers/fse2023a.pdf" style="text-decoration:none; color:#00688A;">paper</a>]</span>
 
-Work experience
+💼 experience
 ======
 + (2023.06-2024.12) **Kwai**, LLM Algorithm Engineer Intern.
 + (2019.07-2021.06) **Streamax Technology**, Algorithm Engineer.
