@@ -20,7 +20,7 @@ redirect_from:
 ======
 + (TOSEM'2024, CCF-A) **Prompt-based Code Completion via Multi-Retrieval Augmented Generation.**
    + <u>Hanzhuo Tan<sup>*</sup>, <strong>Qi Luo<sup>*</sup></strong></u>, Jing Li,Yuqun Zhang
-   + <span style="color:#00688A;">[<a href="{https://dl.acm.org/doi/abs/10.1145/3725812" style="text-decoration:none; color:#00688A;">paper</a>]</span>
+   + <span style="color:#00688A;">[<a href="https://dl.acm.org/doi/abs/10.1145/3725812" style="text-decoration:none; color:#00688A;">paper</a>]</span>
 + (EMNLP'2024, CCF-B) **LLM4Decompile: Decompiling Binary Code with Large Language Models.** 
   <div style="display: inline-flex; align-items: center;">
        <a href="https://github.com/albertan017/LLM4Decompile" style="display: inline-flex; align-items: center; padding: 5px 10px; border: 1px solid #ddd; border-radius: 5px; font-family: Arial, sans-serif; text-decoration: none; color: #333; background-color: #f5f5f5; margin-right: 5px;" target="_blank">
