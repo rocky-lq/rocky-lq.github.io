@@ -18,10 +18,10 @@ redirect_from:
 
 📄 Publications
 ======
-+ (TOSEM'2024, CCF-A) **Prompt-based Code Completion via Multi-Retrieval Augmented Generation.**
++ (TOSEM'2025) **Prompt-based Code Completion via Multi-Retrieval Augmented Generation.**
    + <u>Hanzhuo Tan<sup>*</sup>, <strong>Qi Luo<sup>*</sup></strong></u>, Jing Li,Yuqun Zhang
    + <span style="color:#00688A;">[<a href="https://dl.acm.org/doi/abs/10.1145/3725812" style="text-decoration:none; color:#00688A;">paper</a>]</span>
-+ (EMNLP'2024, CCF-B) **LLM4Decompile: Decompiling Binary Code with Large Language Models.** 
++ (EMNLP'2024) **LLM4Decompile: Decompiling Binary Code with Large Language Models.** 
   <div style="display: inline-flex; align-items: center;">
        <a href="https://github.com/albertan017/LLM4Decompile" style="display: inline-flex; align-items: center; padding: 5px 10px; border: 1px solid #ddd; border-radius: 5px; font-family: Arial, sans-serif; text-decoration: none; color: #333; background-color: #f5f5f5; margin-right: 5px;" target="_blank">
            <img src="https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png" alt="GitHub logo" width="20" height="20" style="margin-right: 5px;">
@@ -31,7 +31,7 @@ redirect_from:
    </div>
    + Hanzhuo Tan, **Qi Luo**, Jing Li, Yuqun Zhang
    + <span style="color:#00688A;">[<a href="https://aclanthology.org/2024.emnlp-main.203" style="text-decoration:none; color:#00688A;">paper</a>] [<a href="https://github.com/albertan017/LLM4Decompile" style="text-decoration:none; color:#00688A;">code</a>] [<a href="https://huggingface.co/LLM4Binary" style="text-decoration:none; color:#00688A;">models</a>]</span>
-+ (FSE'2023, CCF-A) **Enhancing Coverage-Guided Fuzzing via Phantom Program.**
++ (FSE'2023) **Enhancing Coverage-Guided Fuzzing via Phantom Program.**
    + Mingyuan Wu, Kunqiu Chen, **Qi Luo**, Jiahong Xiang, Ji Qi, Junjie Chen, Heming Cui, Yuqun Zhang.
    + <span style="color:#00688A;">[<a href="https://shadowmydx.github.io/papers/fse2023a.pdf" style="text-decoration:none; color:#00688A;">paper</a>]</span>
 
