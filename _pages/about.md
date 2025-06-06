@@ -8,7 +8,7 @@ redirect_from:
 ---
 <span style="color:gray;">Last updated: Apr 20, 2025</span>
 
-👋 Hello! This is Qi Luo. I am a graduate student of Southern University of Science and Technology (SUSTech), working with Prof. [Yuqun Zhang](https://scholar.google.com/citations?hl=en&user=pPyNyusAAAAJ). I have a board interests in large language models and security. I'm collaborating with Dr. [Tan](https://scholar.google.com/citations?user=IQp5awMAAAAJ&hl=zh-CN) on a project about **LLM4Binary**. Feel free to contact me if you're interested in collaboration.
+👋 Hello! This is Qi Luo. I am a Ph.D. student in Microelectronics at HKUST(GZ).
 
 🎓 Education
 ======
