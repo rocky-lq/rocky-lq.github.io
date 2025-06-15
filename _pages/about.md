@@ -12,7 +12,9 @@ redirect_from:
 
 🎓 Education
 ======
-* (2022.09-) M.S. in Southern University of Science and Technology.
+* (2025.06-) Ph.D. in HKUST(GZ).
+  * Supervised by Prof. [Yun Chen](https://yunchen-juuuump.github.io)
+* (2022.09-2025.06) M.S. in Southern University of Science and Technology.
   * Supervised by Prof. [Yuqun Zhang](https://zhangyuqun.github.io)
 * (2015.09-2019.06) B.S. in Xidian University. 
 
