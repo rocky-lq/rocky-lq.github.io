@@ -6,7 +6,7 @@ redirect_from:
   - /about/
   - /about.html
 ---
-<span style="color:gray;">Last updated: Apr 20, 2025</span>
+<span style="color:gray;">Last updated: Sep 29, 2025</span>
 
 👋 Hello! This is Qi Luo. I am a Ph.D. student in Microelectronics at HKUST(GZ).
 
@@ -18,7 +18,7 @@ redirect_from:
   * Supervised by Prof. [Yuqun Zhang](https://zhangyuqun.github.io)
 * (2015.09-2019.06) B.S. in Xidian University. 
 
-📄 Publications
+📄 Selected Publications
 ======
 + (TOSEM'2025) **Prompt-based Code Completion via Multi-Retrieval Augmented Generation.**
    + <u>Hanzhuo Tan<sup>*</sup>, <strong>Qi Luo<sup>*</sup></strong></u>, Jing Li,Yuqun Zhang
