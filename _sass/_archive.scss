@@ -42,6 +42,28 @@
 .archive__item-title {
   margin-bottom: 0.25em;
   font-family: $sans-serif-narrow;
+  display: flex;
+  align-items: baseline;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+
+  > a:first-child {
+    flex-grow: 1;
+  }
+
+  .archive__item-ccf {
+    margin-left: auto;
+    padding: 0.15rem 0.45rem;
+    font-size: 0.55em;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: mix(#fff, $primary-color, 25%);
+    background-color: mix(#fff, $primary-color, 85%);
+    border: 1px solid mix(#fff, $primary-color, 55%);
+    border-radius: $border-radius;
+    text-transform: uppercase;
+    white-space: nowrap;
+  }
 
   a + a {
     opacity: 0.5;
