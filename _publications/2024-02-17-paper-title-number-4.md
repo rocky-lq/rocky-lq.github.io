@@ -7,6 +7,8 @@ excerpt: 'Decompiling Binary Code with Large Language Models'
 date: 2024-02-17
 venue: 'GitHub Journal of Bugs'
 paperurl: 'https://arxiv.org/pdf/2403.05286'
+# Optional fields for extra metadata
+ccf: A
 # citation: 'Your Name, You. (2024). &quot;Paper Title Number 3.&quot; <i>GitHub Journal of Bugs</i>. 1(3).'
 ---
 

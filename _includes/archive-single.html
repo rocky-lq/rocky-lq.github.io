@@ -32,6 +32,9 @@
       {% else %}
         <a href="{{ base_path }}{{ post.url }}" rel="permalink">{{ title }}</a>
       {% endif %}
+      {% if post.ccf %}
+        <span class="archive__item-ccf">CCF-{{ post.ccf | upcase }}</span>
+      {% endif %}
     </h2>
     
     {% if post.read_time %}
