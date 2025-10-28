@@ -8,7 +8,7 @@ redirect_from:
 ---
 <span style="color:gray;">Last updated: Sep 29, 2025</span>
 
-👋 Hello! This is Qi Luo. I am a Ph.D. student in Microelectronics at HKUST(GZ).
+👋 Hello! This is Qi Luo, a first-year Ph.D. student in Microelectronics at HKUST(GZ), focusing on Computer Architecture.
 
 🎓 Education
 ======
