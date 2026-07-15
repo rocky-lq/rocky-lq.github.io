@@ -6,9 +6,13 @@ redirect_from:
   - /about/
   - /about.html
 ---
-<span style="color:gray;">Last updated: Sep 29, 2025</span>
+<span style="color:gray;">Last updated: Jul 15, 2026</span>
 
 👋 Hello! This is Qi Luo, a first-year Ph.D. student in Microelectronics at HKUST(GZ), focusing on Computer Architecture.
+
+📰 News
+======
+* One paper was accepted by SC'26 🎉🎉🎉
 
 🎓 Education
 ======
