@@ -38,7 +38,7 @@ redirect_from:
   <br/>
   Hanzhuo Tan, Xiaolong Tian, Hanrui Qi, Jiaming Liu, Zuchen Gao, Siyi Wang, <b>Qi Luo</b>, Jing Li, and Yuqun Zhang.
   <br/>
-  <span style="color:#00688A;">[<a href="https://arxiv.org/abs/2505.12668" style="text-decoration:none; color:#00688A;">paper</a>] [<a href="https://github.com/albertan017/LLM4Decompile/tree/main/decompile-bench" style="text-decoration:none; color:#00688A;">code</a>] [<a href="https://huggingface.co/collections/LLM4Binary/decompile-bench-68259091c8d49d0ebd5efda9" style="text-decoration:none; color:#00688A;">Dataset</a>]</span>
+  <span style="color:#00688A;">[<a href="https://proceedings.neurips.cc/paper_files/paper/2025/hash/079cf13ae174c31f148207d94d213bdc-Abstract-Datasets_and_Benchmarks_Track.html" style="text-decoration:none; color:#00688A;">paper</a>] [<a href="https://github.com/albertan017/LLM4Decompile/tree/main/decompile-bench" style="text-decoration:none; color:#00688A;">code</a>] [<a href="https://huggingface.co/collections/LLM4Binary/decompile-bench-68259091c8d49d0ebd5efda9" style="text-decoration:none; color:#00688A;">Dataset</a>]</span>
 </li>
 
 <li>
@@ -54,7 +54,7 @@ redirect_from:
   <br/>
   Qingyuan Liang, Zhao Zhang, Chen Liu, Zeyu Sun, Wenjie Zhang, Yizhou Chen, Zixiao Zhao, <b>Qi Luo</b>, Wentao Wang, Yanjie Jiang, Yingfei Xiong, and Lu Zhang.
   <br/>
-  <span style="color:#00688A;">[<a href="https://arxiv.org/abs/2412.17429" style="text-decoration:none; color:#00688A;">paper</a>]</span>
+  <span style="color:#00688A;">[<a href="https://doi.org/10.1109/TSE.2025.3620145" style="text-decoration:none; color:#00688A;">paper</a>]</span>
 </li>
 
 <li>
