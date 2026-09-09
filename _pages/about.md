@@ -6,9 +6,9 @@ redirect_from:
   - /about/
   - /about.html
 ---
-<span style="color:gray;">Last updated: Aug 28, 2026</span>
+<span style="color:gray;">Last updated: Sep 9, 2026</span>
 
-👋 Hello! This is Qi Luo, a first-year Ph.D. student in Microelectronics at HKUST(GZ), focusing on Computer Architecture.
+👋 Hello! This is Qi Luo, a second-year Ph.D. student in Microelectronics at HKUST(GZ), focusing on Computer Architecture.
 
 📰 News
 ======
@@ -93,6 +93,12 @@ redirect_from:
 📝 Under Review
 ======
 <ol>
+<li>
+  <strong style="color:#0b5394">[NeurIPS'26 Workshop RAAAI]</strong> <b>Where Does the Energy Go? Profiling LLM Agent Inference on Blackwell GPUs.</b>
+  <br/>
+  <b>Qi Luo</b>, Kunlin Li, Ziwen Wang, and Yun Chen.
+</li>
+
 <li>
   <strong style="color:#0b5394">[AAAI'27]</strong> <b>Request-Level Energy Attribution for Batched LLM Serving.</b>
   <br/>
