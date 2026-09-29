@@ -1,0 +1,582 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="单色蜘蛛纸牌 — Rocky 的个人主页小游戏">
+  <title>蜘蛛纸牌 · Rocky's Games</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --ink: #edf4f5;
+      --muted: #9db4b6;
+      --felt: #0b3b3a;
+      --felt-deep: #082d2c;
+      --felt-light: #12514e;
+      --gold: #e8bc72;
+      --card-w: clamp(62px, 8.4vw, 101px);
+      --card-h: calc(var(--card-w) * 1.42);
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at 20% 0%, rgba(69, 143, 129, .18), transparent 36rem),
+        linear-gradient(145deg, #071b21 0%, #0c282e 55%, #101e29 100%);
+    }
+
+    body::before { content: ""; position: fixed; z-index: -1; inset: 0; pointer-events: none; opacity: .28; background-image: radial-gradient(rgba(255,255,255,.18) .7px, transparent .7px); background-size: 22px 22px; mask-image: linear-gradient(to bottom, #000, transparent 78%); }
+
+    button { font: inherit; }
+
+    .game-shell { width: min(1320px, calc(100% - 32px)); margin: 0 auto; padding: 26px 0 38px; }
+
+    .topbar { display: flex; align-items: center; justify-content: space-between; gap: 20px; margin-bottom: 20px; }
+    .brand { display: flex; align-items: center; gap: 13px; }
+    .brand-mark { display: grid; place-items: center; width: 44px; height: 44px; border: 1px solid rgba(232,188,114,.55); border-radius: 14px; color: var(--gold); font-size: 24px; background: linear-gradient(145deg, rgba(232,188,114,.16), rgba(232,188,114,.04)); box-shadow: 0 7px 26px rgba(0,0,0,.17), inset 0 1px 0 rgba(255,255,255,.13); }
+    h1 { margin: 0; color: #f4f7f2; font-size: clamp(1.3rem, 2.5vw, 1.9rem); letter-spacing: -.045em; text-shadow: 0 2px 20px rgba(109, 193, 169, .16); }
+    .eyebrow { margin: 0 0 3px; color: var(--gold); font-size: .7rem; font-weight: 700; letter-spacing: .17em; text-transform: uppercase; }
+    .home-link { border: 1px solid rgba(184,215,209,.15); border-radius: 999px; padding: 8px 12px; color: var(--muted); text-decoration: none; font-size: .78rem; transition: color .2s ease, border-color .2s ease, background .2s ease; }
+    .home-link:hover, .home-link:focus-visible { border-color: rgba(232,188,114,.42); background: rgba(232,188,114,.08); }
+    .home-link:hover, .home-link:focus-visible { color: var(--ink); }
+
+    .game-card { overflow: hidden; border: 1px solid rgba(159, 205, 198, .2); border-radius: 26px; background: rgba(7, 24, 30, .62); box-shadow: 0 26px 80px rgba(0,0,0,.3), 0 2px 0 rgba(255,255,255,.04) inset; backdrop-filter: blur(14px); }
+    .toolbar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 14px 22px; padding: 18px 22px; border-bottom: 1px solid rgba(173, 211, 205, .14); background: linear-gradient(90deg, rgba(255,255,255,.025), transparent 55%, rgba(232,188,114,.035)); }
+    .stats { display: flex; flex-wrap: wrap; gap: 9px; }
+    .stat { min-width: 77px; border-left: 1px solid rgba(173,211,205,.2); padding-left: 12px; }
+    .stat-label { display: block; margin-bottom: 3px; color: var(--muted); font-size: .68rem; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; }
+    .stat-value { color: #f5d99d; font-variant-numeric: tabular-nums; font-size: 1.1rem; font-weight: 700; letter-spacing: -.02em; }
+    .toolbar-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+    .action-btn { cursor: pointer; border: 1px solid rgba(184, 215, 209, .23); border-radius: 9px; padding: 8px 13px; color: var(--ink); background: rgba(255,255,255,.055); font-size: .79rem; font-weight: 650; transition: transform .2s ease, border-color .2s ease, background .2s ease; }
+    .action-btn:hover:not(:disabled), .action-btn:focus-visible:not(:disabled) { border-color: rgba(232,188,114,.7); background: rgba(232,188,114,.12); transform: translateY(-1px); }
+    .action-btn:disabled { cursor: not-allowed; opacity: .4; }
+    .action-btn.primary { border-color: rgba(232,188,114,.65); color: #1b2d2b; background: var(--gold); }
+    .action-btn.primary:hover:not(:disabled), .action-btn.primary:focus-visible:not(:disabled) { color: #122120; background: #f1cb87; }
+    .action-btn.hint-btn { border-color: rgba(126, 205, 193, .45); color: #bde1d7; }
+
+    .table-wrap { padding: clamp(17px, 3vw, 30px); background: linear-gradient(140deg, #155b55, var(--felt) 42%, var(--felt-deep)); }
+    .table { position: relative; min-height: calc(var(--card-h) + 170px); border: 1px solid rgba(179, 226, 212, .2); border-radius: 19px; padding: 16px clamp(8px, 2vw, 23px) 26px; background: radial-gradient(ellipse at 50% -20%, rgba(73, 165, 135, .38), transparent 65%), linear-gradient(125deg, rgba(3, 42, 39, .3), rgba(3, 30, 30, .5)); box-shadow: inset 0 1px 0 rgba(255,255,255,.07), 0 12px 24px rgba(0,0,0,.12); }
+    .columns { display: grid; grid-template-columns: repeat(10, minmax(0, 1fr)); gap: clamp(5px, 1.05vw, 15px); align-items: start; }
+    .column { position: relative; min-width: 0; min-height: var(--card-h); border-radius: var(--radius); }
+    .column.empty { border: 1px dashed rgba(191, 229, 219, .28); background: rgba(255,255,255,.025); }
+    .column.empty::after { content: ""; position: absolute; inset: 0; display: grid; place-items: center; color: rgba(201, 231, 221, .5); font-size: clamp(1.25rem, 3vw, 2.2rem); font-weight: 300; content: "＋"; }
+    .column.hint-target { outline: 3px solid #83d8c1; outline-offset: 3px; animation: hint-pulse 1s ease-in-out 2; }
+    .card { position: absolute; left: 0; width: 100%; height: var(--card-h); border: 1px solid rgba(8, 26, 30, .26); border-radius: var(--radius); user-select: none; touch-action: manipulation; transition: transform .18s ease, box-shadow .18s ease, filter .18s ease; }
+    .card.face-down { cursor: default; border-color: rgba(10, 55, 54, .7); background: repeating-linear-gradient(45deg, rgba(255,255,255,.08) 0 2px, transparent 2px 7px), linear-gradient(135deg, #174f50, #0b3039); box-shadow: inset 0 0 0 4px rgba(6, 36, 39, .54), inset 0 0 0 5px rgba(166, 208, 192, .17), 0 3px 5px rgba(0,0,0,.12); }
+    .card.face-down::after { content: "♠"; position: absolute; inset: 0; display: grid; place-items: center; color: rgba(231, 197, 130, .4); font-size: clamp(1.3rem, 3vw, 2.4rem); }
+    .card.face-up { cursor: pointer; overflow: hidden; color: #162525; background: linear-gradient(142deg, #fffdf6 0%, #edf2ec 52%, #dfe8e2 100%); box-shadow: 0 4px 8px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.9); }
+    .card.face-up::before { content: ""; position: absolute; pointer-events: none; inset: 3px; border: 1px solid rgba(52, 84, 74, .12); border-radius: calc(var(--radius) - 3px); }
+    .card.face-up:hover { filter: brightness(1.045); }
+    .card.selected { box-shadow: 0 0 0 3px var(--gold), 0 8px 14px rgba(0,0,0,.32); transform: translateY(-5px); }
+    .card.hint-source { box-shadow: 0 0 0 3px #83d8c1, 0 8px 14px rgba(0,0,0,.32); animation: hint-pulse 1s ease-in-out 2; }
+    .card.dealing { transform-origin: center center; animation: deal-in .48s cubic-bezier(.2,.82,.25,1) both; backface-visibility: hidden; will-change: transform, opacity; }
+    .card:focus-visible, .column:focus-visible { outline: 3px solid var(--gold); outline-offset: 2px; }
+    .card.invalid { animation: shake .27s linear; }
+    .rank { position: absolute; top: 7px; left: 8px; font-size: clamp(.86rem, 1.8vw, 1.18rem); font-weight: 800; line-height: 1; }
+    .suit { position: absolute; right: 8px; bottom: 6px; color: #162525; font-size: clamp(1.1rem, 2.6vw, 1.6rem); line-height: 1; }
+    .card-corner { position: absolute; left: 50%; top: 51%; transform: translate(-50%, -50%); color: #9caa9e; font-size: clamp(1.35rem, 3vw, 2.1rem); opacity: .72; }
+    .stock-area { display: flex; align-items: center; justify-content: space-between; gap: 15px; margin-top: 22px; }
+    .hint { display: flex; align-items: center; gap: 8px; min-height: 25px; color: rgba(226, 239, 232, .82); font-size: .84rem; }
+    .hint::before { content: ""; width: 6px; height: 6px; flex: 0 0 auto; border-radius: 50%; background: #83d8c1; box-shadow: 0 0 0 4px rgba(131,216,193,.1); }
+    .stock { display: flex; align-items: center; gap: 9px; }
+    .stock-count { color: var(--muted); font-variant-numeric: tabular-nums; font-size: .76rem; }
+    .stock-btn { position: relative; width: clamp(45px, 7vw, 70px); height: calc(clamp(45px, 7vw, 70px) * 1.42); cursor: pointer; border: 1px solid rgba(232,188,114,.68); border-radius: 9px; background: repeating-linear-gradient(45deg, rgba(255,255,255,.08) 0 2px, transparent 2px 7px), linear-gradient(135deg, #174f50, #0b3039); box-shadow: inset 0 0 0 3px rgba(6,36,39,.6), inset 0 0 0 4px rgba(166,208,192,.17), 0 5px 10px rgba(0,0,0,.18); transition: transform .2s ease; }
+    .stock-btn::after { content: "♠"; position: absolute; inset: 0; display: grid; place-items: center; color: rgba(232,188,114,.7); font-size: 1.45rem; }
+    .stock-btn:hover:not(:disabled), .stock-btn:focus-visible:not(:disabled) { transform: translateY(-3px); }
+    .stock-btn.dealing-source { animation: stock-pulse .34s ease-in-out infinite alternate; }
+    .stock-btn:disabled { cursor: not-allowed; opacity: .32; }
+
+    .instructions { display: grid; grid-template-columns: 1.15fr 1fr; gap: 26px; padding: 20px 22px 23px; border-top: 1px solid rgba(173,211,205,.12); color: var(--muted); font-size: .79rem; line-height: 1.6; }
+    .instructions p { margin: 0; }
+    .instructions strong { color: var(--ink); font-weight: 650; }
+    .status { margin: 0; color: var(--gold); font-weight: 650; }
+    .leaderboard { padding: 20px 22px 23px; border-top: 1px solid rgba(173,211,205,.14); background: rgba(2,18,24,.12); }
+    .leaderboard-head { display: flex; align-items: baseline; justify-content: space-between; gap: 15px; margin-bottom: 11px; }
+    .leaderboard h2 { margin: 0; font-size: 1rem; }
+    .leaderboard-note { color: var(--muted); font-size: .72rem; }
+    .leaderboard-list { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; counter-reset: scores; }
+    .leaderboard-list li { display: grid; grid-template-columns: 27px 1fr auto auto; align-items: center; gap: 10px; min-height: 34px; border: 1px solid transparent; border-radius: 9px; padding: 4px 9px 4px 5px; color: var(--muted); font-size: .8rem; counter-increment: scores; transition: background .2s ease, border-color .2s ease; }
+    .leaderboard-list li:hover { border-color: rgba(173,211,205,.12); background: rgba(255,255,255,.035); }
+    .leaderboard-list li::before { content: counter(scores); display: grid; place-items: center; width: 22px; height: 22px; border-radius: 50%; color: var(--gold); background: rgba(232,188,114,.1); font-size: .7rem; font-weight: 700; }
+    .leaderboard-list li:first-child { border-color: rgba(232,188,114,.2); background: linear-gradient(90deg, rgba(232,188,114,.1), transparent); }
+    .leaderboard-list li:first-child::before { color: #1b2d2b; background: var(--gold); }
+    .leader-name { overflow: hidden; color: var(--ink); font-weight: 600; text-overflow: ellipsis; white-space: nowrap; }
+    .leader-time, .leader-moves { font-variant-numeric: tabular-nums; }
+    .leader-empty { color: var(--muted); font-size: .8rem; }
+    .leader-empty::before { display: none !important; }
+    .overlay { position: absolute; z-index: 20; inset: 0; display: none; place-items: center; border-radius: 17px; background: rgba(4, 23, 26, .82); backdrop-filter: blur(5px); }
+    .overlay.show { display: grid; }
+    .overlay-panel { width: min(360px, 88%); padding: 26px; border: 1px solid rgba(232,188,114,.45); border-radius: 16px; text-align: center; background: #103e3e; box-shadow: 0 18px 60px rgba(0,0,0,.4); }
+    .overlay-panel h2 { margin: 0 0 7px; font-size: 1.45rem; }
+    .overlay-panel p { margin: 0 0 20px; color: var(--muted); font-size: .88rem; }
+    .overlay-panel .action-btn { min-width: 120px; }
+    .score-form { display: none; margin: 0 0 14px; }
+    .score-form.show { display: flex; gap: 8px; }
+    .score-input { min-width: 0; flex: 1; border: 1px solid rgba(184,215,209,.35); border-radius: 8px; padding: 9px 10px; color: var(--ink); background: rgba(0,0,0,.18); outline: none; }
+    .score-input:focus { border-color: var(--gold); box-shadow: 0 0 0 2px rgba(232,188,114,.2); }
+
+    @keyframes shake { 0%,100% { transform: translateX(0); } 33% { transform: translateX(-4px); } 66% { transform: translateX(4px); } }
+    @keyframes deal-in { 0% { opacity: 0; transform: translate(var(--deal-dx, 0px), var(--deal-dy, -28px)) scale(.72) rotate(-7deg); filter: brightness(1.16); } 58% { opacity: 1; transform: translate(0, 3px) scale(1.035) rotate(1deg); filter: brightness(1.04); } 100% { opacity: 1; transform: translate(0) scale(1) rotate(0); filter: brightness(1); } }
+    @keyframes stock-pulse { from { box-shadow: inset 0 0 0 3px rgba(6,36,39,.6), inset 0 0 0 4px rgba(166,208,192,.17), 0 5px 10px rgba(0,0,0,.18); } to { box-shadow: inset 0 0 0 3px rgba(6,36,39,.6), inset 0 0 0 4px rgba(232,188,114,.5), 0 0 20px rgba(232,188,114,.36); } }
+    @keyframes hint-pulse { 0%,100% { filter: brightness(1); } 50% { filter: brightness(1.28); } }
+    @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } }
+    @media (max-width: 720px) {
+      .game-shell { width: min(100% - 18px, 1320px); padding-top: 14px; }
+      .topbar { align-items: flex-start; }
+      .home-link { padding-top: 6px; }
+      .toolbar { padding: 15px; }
+      .table-wrap { padding: 11px; }
+      .table { padding: 11px 5px 18px; min-height: calc(var(--card-h) + 115px); }
+      .instructions { grid-template-columns: 1fr; gap: 8px; padding: 16px 15px 18px; }
+      .leaderboard { padding: 17px 15px 19px; }
+      .rank { top: 4px; left: 5px; }
+      .suit { right: 5px; bottom: 4px; }
+      .stock-area { margin-top: 17px; }
+    }
+    @media (max-width: 420px) {
+      :root { --card-w: clamp(30px, 8.9vw, 54px); }
+      .columns { gap: 3px; }
+      .card, .column { border-radius: 7px; }
+      .card.face-down { box-shadow: inset 0 0 0 2px rgba(6,36,39,.54), inset 0 0 0 3px rgba(166,208,192,.17), 0 2px 3px rgba(0,0,0,.12); }
+      .rank { font-size: .68rem; }
+      .suit { font-size: .9rem; }
+      .card-corner { font-size: .95rem; }
+      .toolbar-actions { width: 100%; }
+      .toolbar-actions .action-btn { flex: 1; }
+    }
+
+    /* Engineering lab palette: navy, steel blue, and amber */
+    :root { --ink: #edf4fb; --muted: #9aabba; --felt: #164c5a; --felt-deep: #0b2938; --felt-light: #216273; --gold: #edc36e; }
+    body { background: radial-gradient(circle at 14% -5%, rgba(67, 143, 177, .24), transparent 34rem), radial-gradient(circle at 92% 20%, rgba(237, 195, 110, .1), transparent 26rem), linear-gradient(145deg, #08131f 0%, #0e2131 56%, #122c37 100%); }
+    body::before { opacity: .16; background-image: linear-gradient(rgba(116,165,190,.16) 1px, transparent 1px), linear-gradient(90deg, rgba(116,165,190,.16) 1px, transparent 1px); background-size: 36px 36px; mask-image: linear-gradient(to bottom, #000, transparent 72%); }
+    .brand-mark { border-color: rgba(237,195,110,.58); background: linear-gradient(145deg, rgba(237,195,110,.18), rgba(65,147,184,.08)); }
+    .game-card { border-color: rgba(155, 199, 215, .2); background: rgba(7, 19, 30, .68); }
+    .toolbar { border-color: rgba(155,199,215,.15); background: linear-gradient(90deg, rgba(255,255,255,.035), transparent 55%, rgba(237,195,110,.045)); }
+    .stat { border-color: rgba(155,199,215,.2); }
+    .stat-value { color: #f4d58d; }
+    .action-btn { border-color: rgba(155,199,215,.28); background: rgba(255,255,255,.055); }
+    .action-btn:hover:not(:disabled), .action-btn:focus-visible:not(:disabled) { border-color: rgba(237,195,110,.72); background: rgba(237,195,110,.13); }
+    .action-btn.primary { border-color: rgba(237,195,110,.72); color: #172532; background: #edc36e; }
+    .action-btn.primary:hover:not(:disabled), .action-btn.primary:focus-visible:not(:disabled) { color: #11202c; background: #f5d88c; }
+    .action-btn.hint-btn { border-color: rgba(126, 213, 211, .5); color: #a7e5df; }
+    .table-wrap { background: linear-gradient(140deg, #216878, #164c5a 42%, #0b2938); }
+    .table { border-color: rgba(177, 222, 225, .2); background: radial-gradient(ellipse at 50% -20%, rgba(76, 164, 165, .34), transparent 65%), linear-gradient(125deg, rgba(7, 50, 62, .32), rgba(5, 31, 43, .58)); }
+    .column.empty { border-color: rgba(186, 224, 225, .3); background: rgba(255,255,255,.03); }
+    .column.empty::after { color: rgba(209, 235, 234, .5); }
+    .column.hint-target { outline-color: #7ed5d3; }
+    .card.face-down { border-color: rgba(8, 37, 50, .86); background: repeating-linear-gradient(45deg, rgba(255,255,255,.09) 0 2px, transparent 2px 7px), linear-gradient(135deg, #276978, #0c3547); box-shadow: inset 0 0 0 4px rgba(4, 27, 39, .6), inset 0 0 0 5px rgba(174, 220, 222, .18), 0 3px 5px rgba(0,0,0,.18); }
+    .card.face-down::after { color: rgba(237,195,110,.48); }
+    .card.face-up { background: linear-gradient(142deg, #fffefa 0%, #f0f4f1 52%, #e0e9e6 100%); }
+    .card.face-up::before { border-color: rgba(33, 78, 88, .15); }
+    .card.selected { box-shadow: 0 0 0 3px #edc36e, 0 8px 14px rgba(0,0,0,.38); }
+    .card.hint-source { box-shadow: 0 0 0 3px #7ed5d3, 0 8px 14px rgba(0,0,0,.38); }
+    .card-corner { color: #8d9fa2; }
+    .stock-btn { border-color: rgba(237,195,110,.75); background: repeating-linear-gradient(45deg, rgba(255,255,255,.09) 0 2px, transparent 2px 7px), linear-gradient(135deg, #276978, #0c3547); box-shadow: inset 0 0 0 3px rgba(4,27,39,.62), inset 0 0 0 4px rgba(174,220,222,.18), 0 5px 10px rgba(0,0,0,.22); }
+    .stock-btn::after { color: rgba(237,195,110,.82); }
+    .hint { color: rgba(231, 242, 243, .84); }
+    .hint::before { background: #7ed5d3; box-shadow: 0 0 0 4px rgba(126,213,211,.12); }
+    .leaderboard { border-color: rgba(155,199,215,.15); background: rgba(4, 18, 29, .16); }
+    .leaderboard-list li:first-child { border-color: rgba(237,195,110,.25); background: linear-gradient(90deg, rgba(237,195,110,.11), transparent); }
+    .overlay { background: rgba(4, 17, 27, .84); }
+    .overlay-panel { border-color: rgba(237,195,110,.52); background: #123d4b; }
+    .score-input { border-color: rgba(155,199,215,.4); background: rgba(3, 15, 25, .28); }
+    .score-input:focus { border-color: #edc36e; box-shadow: 0 0 0 2px rgba(237,195,110,.22); }
+    @keyframes stock-pulse { from { box-shadow: inset 0 0 0 3px rgba(4,27,39,.62), inset 0 0 0 4px rgba(174,220,222,.18), 0 5px 10px rgba(0,0,0,.22); } to { box-shadow: inset 0 0 0 3px rgba(4,27,39,.62), inset 0 0 0 4px rgba(237,195,110,.58), 0 0 22px rgba(237,195,110,.4); } }
+  </style>
+</head>
+<body>
+  <main class="game-shell">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">♠</div>
+        <div><p class="eyebrow">Rocky’s games</p><h1>单色蜘蛛纸牌</h1></div>
+      </div>
+      <a class="home-link" href="/">← 返回主页</a>
+    </header>
+
+    <section class="game-card" aria-label="单色蜘蛛纸牌游戏">
+      <div class="toolbar">
+        <div class="stats">
+          <div class="stat"><span class="stat-label">时间</span><span id="timer" class="stat-value">00:00</span></div>
+          <div class="stat"><span class="stat-label">步数</span><span id="moves" class="stat-value">0</span></div>
+          <div class="stat"><span class="stat-label">已完成</span><span id="completed" class="stat-value">0 / 8</span></div>
+        </div>
+        <div class="toolbar-actions">
+          <button id="undo-button" class="action-btn" type="button" disabled>↶ 撤销</button>
+          <button id="hint-button" class="action-btn hint-btn" type="button">✦ 提示</button>
+          <button id="new-game-button" class="action-btn primary" type="button">新游戏</button>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <div id="table" class="table">
+          <div id="columns" class="columns" aria-label="牌列"></div>
+          <div class="stock-area">
+            <p id="hint" class="hint" role="status">点击一张牌选中，再点击目标位置移动。</p>
+            <div class="stock"><span id="stock-count" class="stock-count">剩余 50 张</span><button id="stock-button" class="stock-btn" type="button" aria-label="发下一轮牌"></button></div>
+          </div>
+          <div id="overlay" class="overlay" aria-live="assertive">
+            <div class="overlay-panel"><h2 id="overlay-title">恭喜通关！</h2><p id="win-message">你完成了这一局单色蜘蛛纸牌。</p><form id="score-form" class="score-form"><input id="score-name" class="score-input" name="name" maxlength="20" autocomplete="nickname" placeholder="输入你的名字" required><button class="action-btn primary" type="submit">加入榜单</button></form><button id="play-again-button" class="action-btn primary" type="button">再来一局</button></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="instructions">
+        <p><strong>玩法：</strong>把牌按从 K 到 A 的顺序排列。单色模式下，只要数字连续就能整叠移动；完成一组 K-A 后会自动收起。</p>
+        <p><strong>提示：</strong>点击牌会优先自动放到随机可行位置；没有可行位置时才会选中牌叠，再点击目标列手动移动。再次点击当前牌会取消选择，点击另一张可移动的牌会切换选择。空列可以放任意牌，每轮发牌前不能有空列。按 Esc 取消选择，也可用 Tab 和 Enter 操作。</p>
+      </div>
+      <section class="leaderboard" aria-labelledby="leaderboard-title">
+        <div class="leaderboard-head"><h2 id="leaderboard-title">🏆 本地排行榜</h2><span class="leaderboard-note">按用时排序 · 仅保存在本浏览器</span></div>
+        <ol id="leaderboard-list" class="leaderboard-list"></ol>
+      </section>
+    </section>
+  </main>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const RANKS = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+      const GLYPHS = { A: "A", J: "J", Q: "Q", K: "K" };
+      const state = { columns: [], stock: [], completed: 0, moves: 0, seconds: 0, selected: null, hint: null, history: [], seenPositions: new Map(), timerId: null, started: false, animating: false, gameOver: false, outcome: null };
+      const columnsEl = document.querySelector("#columns");
+      const stockButton = document.querySelector("#stock-button");
+      const stockCount = document.querySelector("#stock-count");
+      const hintEl = document.querySelector("#hint");
+      const overlay = document.querySelector("#overlay");
+      const timerEl = document.querySelector("#timer");
+      const movesEl = document.querySelector("#moves");
+      const completedEl = document.querySelector("#completed");
+      const undoButton = document.querySelector("#undo-button");
+      const hintButton = document.querySelector("#hint-button");
+      const newGameButton = document.querySelector("#new-game-button");
+      const scoreForm = document.querySelector("#score-form");
+      const scoreName = document.querySelector("#score-name");
+      const leaderboardList = document.querySelector("#leaderboard-list");
+      const SCORE_KEY = "rocky-spider-solitaire-leaderboard-v1";
+
+      const cloneState = () => ({ columns: state.columns.map(column => column.map(card => ({ ...card }))), stock: state.stock.map(card => ({ ...card })), completed: state.completed, moves: state.moves });
+      const restore = snapshot => { state.columns = snapshot.columns.map(column => column.map(card => ({ ...card }))); state.stock = snapshot.stock.map(card => ({ ...card })); state.completed = snapshot.completed; state.moves = snapshot.moves; state.selected = null; };
+      const shuffle = cards => { for (let i = cards.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [cards[i], cards[j]] = [cards[j], cards[i]]; } return cards; };
+      const formatTime = seconds => `${String(Math.floor(seconds / 60)).padStart(2, "0")}:${String(seconds % 60).padStart(2, "0")}`;
+      const setHint = message => { hintEl.textContent = message; };
+      const loadScores = () => { try { const scores = JSON.parse(window.localStorage.getItem(SCORE_KEY) || "[]"); return Array.isArray(scores) ? scores : []; } catch (error) { return []; } };
+      const saveScores = scores => { try { window.localStorage.setItem(SCORE_KEY, JSON.stringify(scores)); } catch (error) { /* Storage may be disabled in private browsing. */ } };
+      const renderLeaderboard = () => {
+        const scores = loadScores(); leaderboardList.replaceChildren();
+        if (!scores.length) { const empty = document.createElement("li"); empty.className = "leader-empty"; empty.textContent = "还没有成绩，通关后留下你的名字吧。"; leaderboardList.append(empty); return; }
+        scores.slice(0, 10).forEach(score => {
+          const row = document.createElement("li");
+          const name = document.createElement("span"); name.className = "leader-name"; name.textContent = score.name;
+          const time = document.createElement("span"); time.className = "leader-time"; time.textContent = formatTime(score.seconds);
+          const moves = document.createElement("span"); moves.className = "leader-moves"; moves.textContent = `${score.moves} 步`;
+          row.append(name, time, moves); leaderboardList.append(row);
+        });
+      };
+
+      function newGame() {
+        stopTimer();
+        const deck = shuffle(Array.from({ length: 8 }, (_, deckIndex) => RANKS.map((label, rank) => ({ id: `${deckIndex}-${rank}`, label, rank, faceUp: false }))).flat());
+        state.columns = Array.from({ length: 10 }, () => []);
+        for (let i = 0; i < 54; i++) state.columns[i % 10].push(deck[i]);
+        state.columns.forEach(column => { column[column.length - 1].faceUp = true; });
+        state.stock = deck.slice(54);
+        state.completed = 0; state.moves = 0; state.seconds = 0; state.selected = null; state.hint = null; state.history = []; state.seenPositions = new Map(); state.started = false; state.animating = false; state.gameOver = false; state.outcome = null;
+        overlay.classList.remove("show");
+        scoreForm.classList.remove("show"); scoreName.value = "";
+        setHint("点击一张牌选中，再点击目标位置移动。");
+        recordPosition();
+        render();
+      }
+
+      function startTimer() {
+        if (state.started || state.gameOver) return;
+        state.started = true;
+        state.timerId = window.setInterval(() => { state.seconds += 1; timerEl.textContent = formatTime(state.seconds); }, 1000);
+      }
+      function stopTimer() { if (state.timerId) window.clearInterval(state.timerId); state.timerId = null; }
+
+      function movableStart(column, index) {
+        if (!column[index] || !column[index].faceUp) return -1;
+        return index;
+      }
+
+      function movableEnd(column, index) {
+        let end = index;
+        while (end < column.length - 1 && column[end + 1].faceUp && column[end].rank === column[end + 1].rank + 1) end += 1;
+        return end;
+      }
+
+      function canPlace(card, targetColumn) {
+        if (!targetColumn.length) return true;
+        return targetColumn[targetColumn.length - 1].faceUp && targetColumn[targetColumn.length - 1].rank === card.rank + 1;
+      }
+
+      function descendingRunLength(column) {
+        if (!column.length || !column[column.length - 1].faceUp) return 0;
+        let length = 1;
+        for (let index = column.length - 1; index > 0; index -= 1) {
+          if (!column[index - 1].faceUp || column[index - 1].rank !== column[index].rank + 1) break;
+          length += 1;
+        }
+        return length;
+      }
+
+      function canDeal() { return state.stock.length > 0 && !state.columns.some(column => column.length === 0); }
+
+      function boardSignature() {
+        const stock = state.stock.map(card => card.id).join(",");
+        const columns = state.columns.map(column => column.map(card => `${card.id}${card.faceUp ? "u" : "d"}`).join(".")).join("/");
+        return `${stock}|${columns}|${state.completed}`;
+      }
+
+      function recordPosition() {
+        const signature = boardSignature();
+        const count = (state.seenPositions.get(signature) || 0) + 1;
+        state.seenPositions.set(signature, count);
+        if (count >= 3 && !canDeal() && !state.gameOver && state.completed < 8) finishDeadlock("检测到同一个牌局面反复出现，已经无法继续推进。建议重新开始。");
+      }
+
+      function getAvailableMoves() {
+        const moves = [];
+        state.columns.forEach((column, from) => column.forEach((card, cardIndex) => {
+          if (movableStart(column, cardIndex) < 0) return;
+          state.columns.forEach((target, to) => {
+            if (from !== to && canPlace(card, target)) moves.push({ from, to, cardIndex, label: card.label });
+          });
+        }));
+        return moves;
+      }
+
+      function checkDeadlock() {
+        if (state.gameOver || state.animating || state.completed === 8) return;
+        if (!getAvailableMoves().length && !canDeal()) finishDeadlock();
+      }
+
+      function finishDeadlock(message = "当前没有可移动的牌，也没有可以发出的牌。重新开始试试吧。") {
+        state.gameOver = true; state.outcome = "dead"; state.selected = null; stopTimer();
+        document.querySelector("#overlay-title").textContent = "死局";
+        document.querySelector("#win-message").textContent = message;
+        scoreForm.classList.remove("show");
+        setHint("死局：已经没有可行的着法。");
+      }
+
+      function selectCard(columnIndex, cardIndex) {
+        if (state.gameOver) return;
+        const start = movableStart(state.columns[columnIndex], cardIndex);
+        if (start < 0) { setHint("只能选择连续的正面朝上的牌叠。"); pulseCard(columnIndex, cardIndex); return; }
+        state.selected = { columnIndex, cardIndex: start };
+        state.hint = null;
+        setHint("已选中牌叠，点击另一列放置。");
+        render();
+      }
+
+      function autoMoveSelected() {
+        if (!state.selected || state.gameOver || state.animating) return;
+        const { columnIndex, cardIndex } = state.selected;
+        const card = state.columns[columnIndex][cardIndex];
+        const targets = state.columns.map((column, to) => ({ column, to })).filter(({ column, to }) => to !== columnIndex && canPlace(card, column));
+        if (!targets.length) { setHint("当前牌没有可放置的位置，已选中它。请点击目标列手动移动。"); render(); return; }
+        const longest = Math.max(...targets.map(({ column }) => descendingRunLength(column)));
+        const bestTargets = targets.filter(({ column }) => descendingRunLength(column) === longest);
+        const target = bestTargets[Math.floor(Math.random() * bestTargets.length)];
+        moveSelected(target.to);
+      }
+
+      function selectOrAutoMove(columnIndex, cardIndex) {
+        const start = movableStart(state.columns[columnIndex], cardIndex);
+        if (start < 0) { state.selected = null; state.hint = null; setHint("这张牌不能作为可移动牌叠的起点。"); render(); return; }
+        state.selected = { columnIndex, cardIndex: start };
+        const card = state.columns[columnIndex][start];
+        const hasTarget = state.columns.some((column, to) => to !== columnIndex && canPlace(card, column));
+        if (hasTarget) autoMoveSelected();
+        else { state.hint = null; setHint("这张牌暂时没有落点，已选中它；请点击目标列手动移动。"); render(); }
+      }
+
+      function moveSelected(targetIndex) {
+        if (!state.selected || state.gameOver) return;
+        const { columnIndex, cardIndex } = state.selected;
+        if (targetIndex === columnIndex) { state.selected = null; setHint("已取消选择。"); render(); return; }
+        const source = state.columns[columnIndex];
+        const target = state.columns[targetIndex];
+        const moving = source.slice(cardIndex, movableEnd(source, cardIndex) + 1);
+        if (!canPlace(moving[0], target)) { setHint("这叠牌不能放在目标牌上。"); pulseCard(targetIndex, target.length - 1); return; }
+        state.history.push(cloneState());
+        target.push(...moving); source.splice(cardIndex);
+        if (source.length && !source[source.length - 1].faceUp) source[source.length - 1].faceUp = true;
+        state.moves += 1; state.selected = null; state.hint = null; startTimer();
+        setHint("移动成功。继续寻找下一组连续牌。");
+        collectCompleted(columnIndex);
+        collectCompleted(targetIndex);
+        recordPosition();
+        checkDeadlock();
+        render();
+      }
+
+      function showHint() {
+        if (state.gameOver || state.animating) return;
+        const moves = getAvailableMoves();
+        if (!moves.length) {
+          setHint(canDeal() ? "当前没有可移动的牌，可以发下一轮。" : "死局：已经没有可行的着法。");
+          checkDeadlock(); render(); return;
+        }
+        const move = moves[Math.floor(Math.random() * moves.length)];
+        state.selected = { columnIndex: move.from, cardIndex: move.cardIndex };
+        state.hint = move;
+        setHint(`提示：把 ${move.label}♠ 移到第 ${move.to + 1} 列。`);
+        render();
+        window.setTimeout(() => { if (state.hint === move) { state.hint = null; render(); } }, 2600);
+      }
+
+      function collectCompleted(columnIndex) {
+        const column = state.columns[columnIndex];
+        while (column.length >= 13) {
+          const tail = column.slice(-13);
+          if (!tail.every((card, index) => card.faceUp && card.rank === 12 - index)) break;
+          column.splice(-13); state.completed += 1;
+          if (column.length && !column[column.length - 1].faceUp) column[column.length - 1].faceUp = true;
+          setHint(`完成第 ${state.completed} 组！`);
+          if (state.completed === 8) finishGame();
+        }
+      }
+
+      function dealStock() {
+        if (state.gameOver || state.animating) return;
+        if (!state.stock.length || state.columns.some(column => column.length === 0)) { setHint(state.stock.length ? "发牌前不能有空列。" : "没有剩余牌了。"); return; }
+        state.history.push(cloneState());
+        state.moves += 1; state.selected = null; state.hint = null; state.animating = true; startTimer(); setHint("正在发牌……");
+        let dealt = 0;
+        const nextCard = () => {
+          if (dealt === 10) {
+            state.animating = false; state.columns.forEach((_, index) => collectCompleted(index));
+            if (!state.gameOver) { setHint("新的一轮牌已经发出。"); recordPosition(); checkDeadlock(); }
+            render(); return;
+          }
+          const card = state.stock.pop(); card.faceUp = true; card.dealing = true; state.columns[dealt].push(card); dealt += 1;
+          render();
+          window.setTimeout(() => { card.dealing = false; nextCard(); }, 105);
+        };
+        nextCard();
+      }
+
+      function undo() {
+        const snapshot = state.history.pop();
+        if (!snapshot) return;
+        restore(snapshot); state.gameOver = false; state.outcome = null; state.animating = false; state.hint = null; scoreForm.classList.remove("show"); state.seenPositions = new Map(); recordPosition();
+        if (!state.timerId) { state.started = false; startTimer(); }
+        setHint("已撤销上一步。"); render();
+      }
+
+      function finishGame() { state.gameOver = true; state.outcome = "win"; stopTimer(); document.querySelector("#overlay-title").textContent = "恭喜通关！"; document.querySelector("#win-message").textContent = `用时 ${formatTime(state.seconds)}，共 ${state.moves} 步。`; scoreForm.classList.add("show"); scoreName.value = ""; }
+
+      function pulseCard(columnIndex, cardIndex) {
+        const card = columnsEl.children[columnIndex]?.querySelector(`[data-card-index="${cardIndex}"]`);
+        if (!card) return; card.classList.remove("invalid"); void card.offsetWidth; card.classList.add("invalid");
+      }
+
+      function render() {
+        const focused = document.activeElement;
+        const focusedColumn = focused?.dataset?.columnIndex ?? focused?.parentElement?.dataset?.columnIndex;
+        const focusedCard = focused?.dataset?.cardIndex;
+        overlay.classList.toggle("show", state.gameOver);
+        columnsEl.replaceChildren();
+        state.columns.forEach((column, columnIndex) => {
+          const columnEl = document.createElement("div"); columnEl.className = `column${column.length ? "" : " empty"}${state.hint?.to === columnIndex ? " hint-target" : ""}`; columnEl.dataset.columnIndex = columnIndex; columnEl.setAttribute("aria-label", `第 ${columnIndex + 1} 列`);
+          const activateColumn = () => state.selected ? moveSelected(columnIndex) : setHint("先选择要移动的牌。");
+          columnEl.addEventListener("click", event => { if (event.target === columnEl) activateColumn(); });
+          if (!column.length) {
+            columnEl.tabIndex = 0; columnEl.setAttribute("role", "button"); columnEl.setAttribute("aria-label", `第 ${columnIndex + 1} 列，空列`);
+            columnEl.addEventListener("keydown", event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); activateColumn(); } });
+          }
+          let cardTop = 0;
+          column.forEach((card, cardIndex) => {
+            const cardEl = document.createElement("div"); cardEl.className = `card ${card.faceUp ? "face-up" : "face-down"}${card.dealing ? " dealing" : ""}`; cardEl.dataset.cardIndex = cardIndex; cardEl.style.top = `${cardTop}px`; cardEl.style.zIndex = cardIndex;
+            const selectedEnd = state.selected && state.selected.columnIndex === columnIndex ? movableEnd(column, state.selected.cardIndex) : -1;
+            if (card.faceUp) {
+              cardEl.innerHTML = `<span class="rank">${GLYPHS[card.label] || card.label}</span><span class="card-corner">♠</span><span class="suit">♠</span>`;
+              cardEl.setAttribute("aria-label", `第 ${columnIndex + 1} 列，${card.label} 黑桃`);
+              cardEl.setAttribute("role", "button"); cardEl.tabIndex = 0;
+              cardEl.setAttribute("aria-pressed", String(Boolean(state.selected && state.selected.columnIndex === columnIndex && cardIndex >= state.selected.cardIndex && cardIndex <= selectedEnd)));
+              const activateCard = () => {
+                if (!state.selected) {
+                  selectOrAutoMove(columnIndex, cardIndex);
+                  return;
+                }
+                const selected = state.selected;
+                const selectedEnd = movableEnd(state.columns[selected.columnIndex], selected.cardIndex);
+                if (selected.columnIndex === columnIndex && cardIndex >= selected.cardIndex && cardIndex <= selectedEnd) {
+                  state.selected = null; state.hint = null; setHint("已取消选择。"); render(); return;
+                }
+                const clickedColumn = state.columns[columnIndex];
+                const isBottomCard = cardIndex === clickedColumn.length - 1;
+                const selectedCard = state.columns[selected.columnIndex][selected.cardIndex];
+                if (columnIndex !== selected.columnIndex && isBottomCard && canPlace(selectedCard, clickedColumn)) {
+                  moveSelected(columnIndex); return;
+                }
+                if (movableStart(clickedColumn, cardIndex) >= 0) { selectOrAutoMove(columnIndex, cardIndex); return; }
+                state.selected = null; state.hint = null; setHint("已取消旧选择；这张牌不能作为新的牌叠起点。"); render();
+              };
+              cardEl.addEventListener("click", event => { event.stopPropagation(); activateCard(); });
+              cardEl.addEventListener("keydown", event => { if (event.key === "Enter" || event.key === " ") { event.preventDefault(); activateCard(); } });
+            }
+            else cardEl.setAttribute("aria-label", "背面朝上的牌");
+            if (state.selected && state.selected.columnIndex === columnIndex && cardIndex >= state.selected.cardIndex && cardIndex <= selectedEnd) cardEl.classList.add("selected");
+            if (state.hint?.from === columnIndex && state.hint.cardIndex === cardIndex) cardEl.classList.add("hint-source");
+            columnEl.append(cardEl);
+            cardTop += card.faceUp ? 27 : 13;
+          });
+          if (column.length) columnEl.style.height = `calc(var(--card-h) + ${Math.max(0, cardTop - (column[column.length - 1].faceUp ? 27 : 13))}px)`;
+          columnsEl.append(columnEl);
+        });
+        if (state.animating) {
+          const stockRect = stockButton.getBoundingClientRect();
+          columnsEl.querySelectorAll(".card.dealing").forEach(cardEl => {
+            const cardRect = cardEl.getBoundingClientRect();
+            cardEl.style.setProperty("--deal-dx", `${stockRect.left + stockRect.width / 2 - (cardRect.left + cardRect.width / 2)}px`);
+            cardEl.style.setProperty("--deal-dy", `${stockRect.top + stockRect.height / 2 - (cardRect.top + cardRect.height / 2)}px`);
+          });
+        }
+        stockButton.classList.toggle("dealing-source", state.animating);
+        stockButton.disabled = !state.stock.length || state.gameOver || state.animating;
+        stockCount.textContent = `剩余 ${state.stock.length} 张`;
+        undoButton.disabled = state.history.length === 0 || state.animating;
+        hintButton.disabled = state.gameOver || state.animating;
+        newGameButton.disabled = state.animating;
+        timerEl.textContent = formatTime(state.seconds); movesEl.textContent = state.moves; completedEl.textContent = `${state.completed} / 8`;
+        if (state.gameOver) {
+          if (state.outcome === "win" && scoreForm.classList.contains("show")) scoreName.focus({ preventScroll: true });
+          else document.querySelector("#play-again-button").focus({ preventScroll: true });
+        }
+        else if (focusedColumn !== undefined) {
+          const column = columnsEl.children[focusedColumn];
+          (column?.children[focusedCard] || column?.lastElementChild || column)?.focus({ preventScroll: true });
+        }
+      }
+
+      stockButton.addEventListener("click", dealStock);
+      undoButton.addEventListener("click", undo);
+      hintButton.addEventListener("click", showHint);
+      newGameButton.addEventListener("click", () => { if (!state.moves || state.gameOver || window.confirm("开始新游戏？当前这一局的进度将丢失。")) newGame(); });
+      scoreForm.addEventListener("submit", event => {
+        event.preventDefault();
+        const name = scoreName.value.trim();
+        if (!name || state.outcome !== "win") return;
+        const scores = loadScores();
+        scores.push({ name, seconds: state.seconds, moves: state.moves, createdAt: Date.now() });
+        scores.sort((a, b) => a.seconds - b.seconds || a.moves - b.moves || a.createdAt - b.createdAt);
+        saveScores(scores.slice(0, 10)); renderLeaderboard(); scoreForm.classList.remove("show"); setHint("成绩已加入排行榜。"); document.querySelector("#play-again-button").focus({ preventScroll: true });
+      });
+      document.addEventListener("keydown", event => { if (event.key === "Escape") { state.selected = null; setHint("已取消选择。"); render(); } });
+      document.querySelector("#play-again-button").addEventListener("click", newGame);
+      renderLeaderboard();
+      newGame();
+    })();
+  </script>
+</body>
+</html>
