@@ -6,13 +6,12 @@ redirect_from:
   - /about/
   - /about.html
 ---
-<span style="color:gray;">Last updated: Oct 1, 2026</span>
+<span style="color:gray;">Last updated: Sep 9, 2026</span>
 
 👋 Hello! This is Qi Luo, a second-year Ph.D. student in Microelectronics at HKUST(GZ), focusing on Computer Architecture.
 
 📰 News
 ======
-* One paper was accepted by NeurIPS 2026 Workshop on Resource-Aware Agentic AI (RAAAI) 🎉🎉🎉
 * One paper was accepted by SC'26 🎉🎉🎉
 
 🎓 Education
@@ -32,14 +31,6 @@ redirect_from:
   <b>Qi Luo</b>, Kunlin Li, Changxi Liu, Dongsheng Wang, and Yun Chen.
   <br/>
   <em>The International Conference for High Performance Computing, Networking, Storage, and Analysis.</em>
-</li>
-
-<li>
-  <strong style="color:#0b5394">[NeurIPS'26 Workshop RAAAI]</strong> <b>Where Does the Energy Go? Profiling LLM Agent Inference on Blackwell GPUs.</b>
-  <br/>
-  <b>Qi Luo</b>, Kunlin Li, Ziwen Wang, and Yun Chen.
-  <br/>
-  <em>NeurIPS 2026 Workshop on Resource-Aware Agentic AI.</em>
 </li>
 
 <li>
@@ -102,6 +93,12 @@ redirect_from:
 📝 Under Review
 ======
 <ol>
+<li>
+  <strong style="color:#0b5394">[NeurIPS'26 Workshop RAAAI]</strong> <b>Where Does the Energy Go? Profiling LLM Agent Inference on Blackwell GPUs.</b>
+  <br/>
+  <b>Qi Luo</b>, Kunlin Li, Ziwen Wang, and Yun Chen.
+</li>
+
 <li>
   <strong style="color:#0b5394">[AAAI'27]</strong> <b>Request-Level Energy Attribution for Batched LLM Serving.</b>
   <br/>
