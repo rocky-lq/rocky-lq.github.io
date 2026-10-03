@@ -408,7 +408,7 @@
         const moving = source.slice(cardIndex, movableEnd(source, cardIndex) + 1);
         if (!canPlace(moving[0], target)) { setHint("这叠牌不能放在目标牌上。"); pulseCard(targetIndex, target.length - 1); return; }
         state.history.push(cloneState());
-        target.push(...moving); source.splice(cardIndex);
+        target.push(...moving); source.splice(cardIndex, moving.length);
         if (source.length && !source[source.length - 1].faceUp) source[source.length - 1].faceUp = true;
         state.moves += 1; state.selected = null; state.hint = null; startTimer();
         setHint("移动成功。继续寻找下一组连续牌。");
