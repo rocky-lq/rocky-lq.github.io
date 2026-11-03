@@ -99,33 +99,6 @@ redirect_from:
 
 </ol>
 
-📝 Under Review
-======
-<ol>
-<li>
-  <strong style="color:#0b5394">[AAAI'27]</strong> <b>Request-Level Energy Attribution for Batched LLM Serving.</b>
-  <br/>
-  <b>Qi Luo</b>, Kunlin Li, Ziwen Wang, Dongsheng Wang, and Yun Chen.
-  <br/>
-  <span style="color:#00688A;">[<a href="https://arxiv.org/abs/2608.00026" style="text-decoration:none; color:#00688A;">paper</a>]</span>
-</li>
-
-<li>
-  <strong style="color:#0b5394">[AAAI'27]</strong> <b>TRACE: Tool-Relevance-Aware Cache Eviction with Conformal Guarantees for Agentic Inference.</b>
-  <br/>
-  <b>Qi Luo</b>, Kunlin Li, Ziwen Wang, Dongsheng Wang, and Yun Chen.
-</li>
-
-<li>
-  <strong style="color:#0b5394">[AAAI'27]</strong> <b>The Gate, Not the Cache: Gate Provenance Bounds the Closed-Loop Reliability of Training-Free VLA Token Skipping.</b>
-  <br/>
-  <b>Qi Luo</b>, Shuaijun Liu, Hao Zhao, Kunlin Li, Xiaobo Wang, Ningxing Su, Dongsheng Wang, and Yun Chen.
-  <br/>
-  <span style="color:#00688A;">[<a href="https://arxiv.org/abs/2608.00391" style="text-decoration:none; color:#00688A;">paper</a>]</span>
-</li>
-
-</ol>
-
 💼 Experience
 ======
 + (2026.06-2026.09) **Sangfor Technologies**, Embodied AI Research Intern.
